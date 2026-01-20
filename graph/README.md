@@ -14,8 +14,8 @@ To understand what this prototype does, think of a burning building:
 * **The Problem:** A fire alarm goes off (Alert), but the building has 50 rooms.
 * **The "Old" Way:** A detective (AI) runs into every single room to find the fire. This is slow, and they might get lost.
 * **The RootScout Way:**
-    1.  **The Blueprint (The Graph):** Before entering, the detective looks at a blueprint. It shows the alarm tripped in the Kitchen, but the gas pipe feeding the Kitchen comes from the Basement.
-    2.  **The Investigation:** The detective ignores the Bedrooms and Attic. They go straight to the **Basement** to check the pipes.
+    1. **The Blueprint (The Graph):** Before entering, the detective looks at a blueprint. It shows the alarm tripped in the Kitchen, but the gas pipe feeding the Kitchen comes from the Basement.
+    2. **The Investigation:** The detective ignores the Bedrooms and Attic. They go straight to the **Basement** to check the pipes.
 
 ### Architecture Flow
 
@@ -29,14 +29,15 @@ graph LR
     D -->|Result| E["Root Cause: PaymentService\nCommit: a1b2c"]
 ```
 
-
-# How to run (ensure you  have python installed):
+## How to run (ensure you have python installed):
 
 1. cd graph
 2. pip install networkx
 3. python run_simulation.py
 
-# Expected output:
+## Expected output:
+
+```
 --- STREAMING DATA START ---
 [Graph] Updated dependency: frontend -> checkout_service
 [Graph] Tagged payment_service with commit a1b2c3d_bad_commit
@@ -54,3 +55,4 @@ graph LR
 👉 ROOT CAUSE FOUND: payment_service
    Suspicious Commit: a1b2c3d_bad_commit
    Action: Recommended rollback of this commit.
+```
