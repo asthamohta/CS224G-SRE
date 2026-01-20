@@ -1,6 +1,6 @@
 # RootScout: Graph Builder Prototype 🕵️‍♂️
 
-> **Project:** RootScout - Autonomous SRE Agent  
+> **Project:** RootScout - Autonomous SRE Agent
 > **Component:** Core Graph Engine (Week 1-2 Prototype)
 
 This directory contains the **Minimum Viable Prototype (MVP)** for the RootScout Graph Engine. It demonstrates the core logic of the "AI SRE": combining **Telemetry (Traces)** with **Code Changes (Diffs)** to isolate root causes deterministically.
@@ -26,7 +26,7 @@ graph LR
     A[Stream: Traces] -->|Builds Edges| C(Graph Engine)
     B[Stream: Diffs] -->|Tags Nodes| C
     C -->|Query| D{Fault Isolation}
-    D -->|Result| E[Root Cause: PaymentService <br> Commit: a1b2c]
+    D -->|Result| E[Root Cause: PaymentService <br> Commit: a1b2c]```
 
 
 # How to run (ensure you  have python installed):
