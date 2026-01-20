@@ -26,7 +26,8 @@ graph LR
     A[Stream: Traces] -->|Builds Edges| C(Graph Engine)
     B[Stream: Diffs] -->|Tags Nodes| C
     C -->|Query| D{Fault Isolation}
-    D -->|Result| E[Root Cause: PaymentService <br> Commit: a1b2c]```
+    D -->|Result| E["Root Cause: PaymentService\nCommit: a1b2c"]
+```
 
 
 # How to run (ensure you  have python installed):
