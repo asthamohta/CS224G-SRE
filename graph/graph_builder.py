@@ -1,10 +1,22 @@
 import networkx as nx
 import json
+import time
 
 class GraphBuilder:
     def __init__(self):
         # The core graph storage (Directed Graph)
         self.graph = nx.DiGraph()
+
+    def _ensure_node(self, service_name):
+        """Helper to ensure a node exists with default rich structure."""
+        if service_name not in self.graph:
+            self.graph.add_node(
+                service_name,
+                status="unknown",
+                metadata={},       # For owner, runbook links, etc.
+                recent_events=[],  # List of dicts: {type, description, timestamp}
+                active_alerts=[]
+            )
 
     def ingest_trace_span(self, span_data):
         """
@@ -22,28 +34,51 @@ class GraphBuilder:
 
         # 3. Add/Update the Node (The Service itself)
         # We update the node to reflect its LATEST status
-        self.graph.add_node(service_name, status="error" if has_error else "ok")
+        self._ensure_node(service_name)
+        
+        # Update status only if it's currently unknown or we have a new error state
+        # (In a real system, we'd have more complex state aggregation)
+        current_status = self.graph.nodes[service_name].get("status")
+        new_status = "error" if has_error else "ok"
+        
+        # Simple latch: if we see an error, mark as error. If ok, mark as ok.
+        # (This is a simplification for the prototype)
+        nx.set_node_attributes(self.graph, {service_name: {"status": new_status}})
 
         # 4. Add the Edge (Dependency)
         # Only if there is a parent (Root spans don't have parents)
         if parent_service:
+            self._ensure_node(parent_service)
             self.graph.add_edge(parent_service, service_name, latency=latency)
             print(f"[Graph] Updated dependency: {parent_service} -> {service_name}")
 
     def ingest_deployment_event(self, deployment_data):
         """
         Ingests a 'Stream Diff' (GitHub Webhook).
-        Logic: Tag a specific service node with the new Commit Hash.
+        Logic: Tag a specific service node with the new Commit Hash and record event.
         """
         service = deployment_data.get("service")
         commit_hash = deployment_data.get("commit_sha")
+        timestamp = deployment_data.get("timestamp", time.time())
+        summary = deployment_data.get("summary", "Deployment received")
         
-        if service in self.graph.nodes:
-            # Add 'version' attribute to the node
-            nx.set_node_attributes(self.graph, {service: {"version": commit_hash}})
-            print(f"[Graph] Tagged {service} with commit {commit_hash}")
-        else:
-            print(f"[Warning] Received deploy for unknown service: {service}")
+        # Ensure node exists (even if we haven't seen traces yet)
+        self._ensure_node(service)
+        
+        # Update current version
+        nx.set_node_attributes(self.graph, {service: {"version": commit_hash}})
+        
+        # Append to history
+        node = self.graph.nodes[service]
+        event = {
+            "type": "deployment",
+            "commit": commit_hash,
+            "timestamp": timestamp,
+            "summary": summary
+        }
+        node["recent_events"].append(event)
+        
+        print(f"[Graph] Tagged {service} with commit {commit_hash} and added event.")
 
     def get_downstream_dependencies(self, service_node):
         """
