@@ -2,54 +2,38 @@ import json
 import os
 import sys
 
-# Hack to make imports work from the graph subdir if running from there
+# Ensure imports work from the root directory
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from graph_builder import GraphBuilder
 from context_retriever import ContextRetriever
 from agent import RCAAgent
-from llm_integration.client import GeminiClient, VertexClient, MockClient
+from llm_integration.client import GeminiClient, MockClient
 
-# 1. Initialize the Engine
+# 1. Initialize Engine
 engine = GraphBuilder()
 retriever = ContextRetriever(engine)
-
-# ======================================================
-# CONFIGURATION
-# To usage GCP Credits (Vertex AI):
-#   1. Run: gcloud auth application-default login
-#   2. Set gcp_project_id = "your-project-id" (e.g. "gen-lang-client-0546729183")
-#   3. Comment out api_key
-# 
-# To usage Free Tier (Gemini API):
-#   1. Get key from aistudio.google.com
-#   2. Set api_key = "AIza..."
-# ======================================================
-
-gcp_project_id = "gen-lang-client-0546729183" # From your credits
-# api_key = "AIzaSy..." 
 
 print("\n--- LLM SETUP ---")
 agent = None
 
-# Option A: Vertex AI (Paid/Credits)
-if gcp_project_id and not agent:
+# ✅ USE OPTION B: Gemini API (Developer Flow)
+try:
+    print("🔌 Connecting to Gemini API (2.5 Flash)...")
+    real_client = GeminiClient() # Automatically pulls from .env
+    agent = RCAAgent(client=real_client)
+except Exception as e:
+    print(f"⚠️ Gemini API Init Failed: {e}")
+    agent = RCAAgent(client=MockClient())
+
+#Option B: Gemini API (Free Tier)
+if not agent:
     try:
-        print(f"🔌 Connecting to Vertex AI (Project: {gcp_project_id})...")
-        print("   (Ensure you ran 'gcloud auth application-default login')")
-        real_client = VertexClient(project_id=gcp_project_id)
+        print(f"🔌 Connecting to Gemini API (Key: {api_key})...")
+        real_client = GeminiClient(api_key=api_key)
         agent = RCAAgent(client=real_client)
     except Exception as e:
-        print(f"⚠️ Vertex AI Init Failed: {e}")
-
-# Option B: Gemini API (Free Tier)
-# if not agent:
-#     try:
-#         print(f"🔌 Connecting to Gemini API (Key: {api_key})...")
-#         real_client = GeminiClient(api_key=api_key)
-#         agent = RCAAgent(client=real_client)
-#     except Exception as e:
-#         print(f"⚠️ Gemini API Init Failed: {e}")
+        print(f"⚠️ Gemini API Init Failed: {e}")
 
 # Fallback
 if not agent:
