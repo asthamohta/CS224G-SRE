@@ -9,20 +9,37 @@ import hashlib
 from typing import Optional, Tuple
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, Request, BackgroundTasks, Header, HTTPException
+from fastapi import FastAPI, Request, BackgroundTasks, Header, HTTPException, Response
 
-from data_ingester import IngestConfig, GitHubIngester, PrintSink
+# GitHub ingestion
+from data_ingester import IngestConfig, GitHubIngester, PrintSink as GitHubPrintSink
+
+# OTel ingestion (you created this in otel_ingester.py)
+from otel_ingester import OTelIngester, PrintSink as OTelPrintSink
+
+# OTLP protobuf messages (from opentelemetry-proto)
+from opentelemetry.proto.collector.trace.v1.trace_service_pb2 import (
+    ExportTraceServiceRequest,
+    ExportTraceServiceResponse,
+)
+from opentelemetry.proto.collector.metrics.v1.metrics_service_pb2 import (
+    ExportMetricsServiceRequest,
+    ExportMetricsServiceResponse,
+)
+from opentelemetry.proto.collector.logs.v1.logs_service_pb2 import (
+    ExportLogsServiceRequest,
+    ExportLogsServiceResponse,
+)
+
+PROTO_CT = "application/x-protobuf"
+
 
 """
-    GitHub HMAC signature verification:
-    - Header: X-Hub-Signature-256: sha256=<hex>
-    - Compute HMAC(secret, raw_body) using SHA-256 and compare with provided hex.
+GitHub HMAC signature verification:
+- Header: X-Hub-Signature-256: sha256=<hex>
+- Compute HMAC(secret, raw_body) using SHA-256 and compare with provided hex.
 """
 def _verify_github_signature(secret: str, raw_body: bytes, signature_256: Optional[str]) -> bool:
-    
-    # To-do:
-    # For early prototyping this can be run without a secret.
-    # In any real deployment, we set a webhook secret and enforce verification.
     if not secret:
         return True
 
@@ -35,16 +52,16 @@ def _verify_github_signature(secret: str, raw_body: bytes, signature_256: Option
 
 
 """
-Environment variable parsing.
+Environment variable parsing for GitHub ingestion.
 """
 def _load_config() -> IngestConfig:
     github_token = os.getenv("GITHUB_TOKEN", "")
     webhook_secret = os.getenv("GITHUB_WEBHOOK_SECRET", "")
 
-    repo_owner = os.getenv("WATCH_REPO_OWNER", "")   # ex: "my-org"
-    repo_name = os.getenv("WATCH_REPO_NAME", "")     # ex: "my-repo"
+    repo_owner = os.getenv("WATCH_REPO_OWNER", "")
+    repo_name = os.getenv("WATCH_REPO_NAME", "")
 
-    watch_path_prefix = os.getenv("WATCH_PATH_PREFIX", "")  # ex: "services/cart"
+    watch_path_prefix = os.getenv("WATCH_PATH_PREFIX", "")
     service_id = os.getenv("SERVICE_ID", "")
 
     return IngestConfig(
@@ -58,7 +75,7 @@ def _load_config() -> IngestConfig:
 
 
 """
-    Extracts the GitHub repository owner and repo name from a webhook payload.
+Extracts the GitHub repository owner and repo name from a webhook payload.
 """
 def _extract_repo_owner_name(payload: dict) -> Tuple[str, str]:
     repo = payload.get("repository") or {}
@@ -76,21 +93,38 @@ def _extract_repo_owner_name(payload: dict) -> Tuple[str, str]:
     return owner, name
 
 
+def _parse_protobuf(msg, raw: bytes):
+    try:
+        msg.ParseFromString(raw)
+        return msg
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Invalid protobuf payload: {e}")
+
+
 def create_app() -> FastAPI:
     load_dotenv()
 
+    # GitHub ingestion setup
     config = _load_config()
-    sink = PrintSink()  # Replace later with a DB sink
-    ingester = GitHubIngester(config=config, sink=sink)
+    gh_sink = GitHubPrintSink()  # Replace later with a DB sink
+    gh_ingester = GitHubIngester(config=config, sink=gh_sink)
 
-    app = FastAPI(title="RootScout GitHub Webhook Receiver", version="0.1.0")
+    # OTel ingestion setup
+    otel_sink = OTelPrintSink()  # Replace later with a DB sink
+    otel_ingester = OTelIngester(sink=otel_sink)
+
+    app = FastAPI(title="RootScout Ingestion Service", version="0.2.0")
     app.state.config = config
-    app.state.ingester = ingester
+    app.state.gh_ingester = gh_ingester
+    app.state.otel_ingester = otel_ingester
 
     @app.get("/healthz")
     def healthz():
         return {"ok": True}
 
+    # -------------------------
+    # GitHub webhook endpoint
+    # -------------------------
     @app.post("/webhooks/github")
     async def github_webhook(
         request: Request,
@@ -121,8 +155,57 @@ def create_app() -> FastAPI:
             raise HTTPException(status_code=400, detail=str(e))
 
         # Respond quickly and process asynchronously.
-        background_tasks.add_task(app.state.ingester.handle_event, event_type, repo_owner, repo_name, payload)
+        background_tasks.add_task(app.state.gh_ingester.handle_event, event_type, repo_owner, repo_name, payload)
         return {"accepted": True, "event_type": event_type, "repo": f"{repo_owner}/{repo_name}"}
+
+    # -------------------------
+    # OTLP HTTP endpoints
+    # -------------------------
+    @app.post("/v1/traces")
+    async def otlp_traces(request: Request, content_type: Optional[str] = Header(None)):
+        raw = await request.body()
+        req = _parse_protobuf(ExportTraceServiceRequest(), raw)
+
+        # Ingest synchronously (fast) or move to background if needed later
+        result = app.state.otel_ingester.ingest_traces(req)
+
+        resp = ExportTraceServiceResponse()
+        ct = content_type or PROTO_CT
+        return Response(
+            content=resp.SerializeToString(),
+            media_type=ct,
+            headers={"X-RootScout-Count": str(result.count)},
+        )
+
+    @app.post("/v1/metrics")
+    async def otlp_metrics(request: Request, content_type: Optional[str] = Header(None)):
+        raw = await request.body()
+        req = _parse_protobuf(ExportMetricsServiceRequest(), raw)
+
+        result = app.state.otel_ingester.ingest_metrics(req)
+
+        resp = ExportMetricsServiceResponse()
+        ct = content_type or PROTO_CT
+        return Response(
+            content=resp.SerializeToString(),
+            media_type=ct,
+            headers={"X-RootScout-Count": str(result.count)},
+        )
+
+    @app.post("/v1/logs")
+    async def otlp_logs(request: Request, content_type: Optional[str] = Header(None)):
+        raw = await request.body()
+        req = _parse_protobuf(ExportLogsServiceRequest(), raw)
+
+        result = app.state.otel_ingester.ingest_logs(req)
+
+        resp = ExportLogsServiceResponse()
+        ct = content_type or PROTO_CT
+        return Response(
+            content=resp.SerializeToString(),
+            media_type=ct,
+            headers={"X-RootScout-Count": str(result.count)},
+        )
 
     return app
 
