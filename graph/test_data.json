@@ -1,0 +1,28 @@
+[
+  {
+    "type": "span",
+    "service_name": "frontend",
+    "parent_service": null,
+    "latency_ms": 120,
+    "status": "OK"
+  },
+  {
+    "type": "span",
+    "service_name": "checkout_service",
+    "parent_service": "frontend",
+    "latency_ms": 45,
+    "status": "OK"
+  },
+  {
+    "type": "diff",
+    "service": "payment_service",
+    "commit_sha": "a1b2c3d_bad_commit"
+  },
+  {
+    "type": "span",
+    "service_name": "payment_service",
+    "parent_service": "checkout_service",
+    "latency_ms": 5000,
+    "status": "ERROR"
+  }
+]
