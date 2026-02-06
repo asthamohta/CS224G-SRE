@@ -74,8 +74,23 @@ When an alert fires, the system executes a three-stage recovery pipeline:
    ```bash
    # .env
    GEMINI_API_KEY=your_gemini_api_key_here
-   ```
+   GITHUB_OUTPUT_PATH=github-export-path
+   GITHUB_TOKEN=                 # optional for public repo; add token if you hit rate limits
+   GITHUB_WEBHOOK_SECRET=webhook-secret
 
+   WATCH_REPO_OWNER=asthamohta
+   WATCH_REPO_NAME=CS224G-SRE
+   WATCH_PATH_PREFIX=online_boutique
+
+   HOST=0.0.0.0
+   PORT=8000
+   ```
+### Run the github PR ingester
+```bash
+pip3 install -r RootScout/requirements.txt  
+touch RootScout/__init__.py
+python3 -m RootScout.main
+```
 ### Run the Simulation
 
 Execute the core simulation to see the graph-building and LLM reasoning in action:
