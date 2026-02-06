@@ -1,5 +1,5 @@
 """
-data_ingester.py
+github_ingester.py
 - Fetches richer details from GitHub API (commit files, PR files)
 - Filters to only ingest changes under WATCH_PATH_PREFIX (folder within repo)
 - Emits normalized ChangeEvent objects through a sink interface (PrintSink for now)
@@ -11,6 +11,9 @@ Later you can replace PrintSink with a DB sink and add richer mapping
 from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
+import json
+import os
+import threading
 
 import httpx
 
@@ -29,6 +32,9 @@ class IngestConfig:
 
     # Optional: explicit service_id, otherwise derived from watch_path_prefix
     service_id: str
+
+    # file path to append change events as JSON lines
+    github_output_path: str
 
 
 class ChangeSink:
@@ -130,6 +136,46 @@ class GitHubClient:
                 url = next_url
 
         return files
+    
+    async def list_pull_requests(
+        self,
+        owner: str,
+        repo: str,
+        state: str = "all",
+        sort: str = "updated",
+        direction: str = "desc",
+        per_page: int = 100,
+    ) -> List[Dict[str, Any]]:
+        """
+        GET /repos/{owner}/{repo}/pulls
+        Returns PRs (paginated).
+        """
+        prs: List[Dict[str, Any]] = []
+        url = (
+            f"{self._base}/repos/{owner}/{repo}/pulls"
+            f"?state={state}&sort={sort}&direction={direction}&per_page={per_page}"
+        )
+
+        async with httpx.AsyncClient(timeout=20) as client:
+            while url:
+                r = await client.get(url, headers=self._headers())
+                if r.status_code >= 400:
+                    raise RuntimeError(f"GitHub list_pull_requests failed: {r.status_code} {r.text}")
+                prs.extend(r.json())
+
+                next_url = None
+                link = r.headers.get("Link", "")
+                for part in link.split(","):
+                    part = part.strip()
+                    if 'rel="next"' in part:
+                        left = part.find("<")
+                        right = part.find(">")
+                        if left != -1 and right != -1 and right > left:
+                            next_url = part[left + 1:right]
+                url = next_url
+
+        return prs
+
 
 
 class GitHubIngester:
@@ -266,3 +312,76 @@ class GitHubIngester:
             files=filtered_files,
         )
         self._sink.emit(asdict(event))
+    
+    async def backfill_pull_requests(self, owner: str, repo: str) -> None:
+        """
+        Backfills historical PRs (state=all), emitting ChangeEvent for each PR
+        that touches watch_path_prefix.
+        """
+        print(f"[GitHubIngester] Backfilling PRs for {owner}/{repo}...")
+
+        if not self._should_ingest_repo(owner, repo):
+            print("[GitHubIngester] Backfill skipped due to repo watch filter")
+            return
+
+        service_id = self._derive_service_id()
+
+        prs = await self._gh.list_pull_requests(owner, repo, state="all", sort="updated", direction="desc")
+        print(f"[GitHubIngester] Found {len(prs)} PRs")
+
+        for pr in prs:
+            pr_number = pr.get("number")
+            if not isinstance(pr_number, int):
+                continue
+
+            pr_title = pr.get("title") or None
+            pr_url = pr.get("html_url") or None
+
+            files = await self._gh.list_pull_request_files(owner, repo, pr_number)
+            filtered_files = self._filter_files(files)
+
+            if self._config.watch_path_prefix and not filtered_files:
+                continue
+
+            event = ChangeEvent(
+                ingested_at=datetime.now(timezone.utc).isoformat(),
+                event_type="pull_request_backfill",
+                repo_owner=owner,
+                repo_name=repo,
+                service_id=service_id,
+                watch_path_prefix=self._config.watch_path_prefix,
+                pr_number=pr_number,
+                title=pr_title,
+                url=pr_url,
+                files=filtered_files,
+            )
+            self._sink.emit(asdict(event))
+
+        print("[GitHubIngester] Backfill complete")
+
+class FileAppendSink(ChangeSink):
+    """
+    Appends each change_event as a JSON line to output_path.
+    Optionally also prints the same payload to stdout.
+    """
+    def __init__(self, output_path: str, also_print: bool = True):
+        self._output_path = output_path
+        self._also_print = also_print
+        self._lock = threading.Lock()
+
+        parent = os.path.dirname(output_path)
+        if parent:
+            os.makedirs(parent, exist_ok=True)
+
+    def emit(self, change_event: Dict[str, Any]) -> None:
+        # JSONL: compact, one object per line
+        line = json.dumps(change_event, ensure_ascii=False) + "\n"
+
+        with self._lock:
+            with open(self._output_path, "a", encoding="utf-8") as f:
+                f.write(line)
+
+        if self._also_print:
+            print("CHANGE_EVENT:")
+            print(json.dumps(change_event, ensure_ascii=False, indent=2, sort_keys=True))
+

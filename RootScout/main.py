@@ -2,6 +2,7 @@
 main.py
 """
 
+import asyncio
 import os
 import json
 import hmac
@@ -12,10 +13,10 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, Request, BackgroundTasks, Header, HTTPException, Response
 
 # GitHub ingestion
-from data_ingester import IngestConfig, GitHubIngester, PrintSink as GitHubPrintSink
+from RootScout.github_ingester import FileAppendSink, IngestConfig, GitHubIngester, PrintSink as GitHubPrintSink
 
 # OTel ingestion (you created this in otel_ingester.py)
-from otel_ingester import OTelIngester, PrintSink as OTelPrintSink
+from RootScout.otel_ingester import OTelIngester, PrintSink as OTelPrintSink
 
 # OTLP protobuf messages (from opentelemetry-proto)
 from opentelemetry.proto.collector.trace.v1.trace_service_pb2 import (
@@ -63,6 +64,7 @@ def _load_config() -> IngestConfig:
 
     watch_path_prefix = os.getenv("WATCH_PATH_PREFIX", "")
     service_id = os.getenv("SERVICE_ID", "")
+    github_output_path = os.getenv("GITHUB_OUTPUT_PATH", "").strip()
 
     return IngestConfig(
         github_token=github_token,
@@ -71,6 +73,7 @@ def _load_config() -> IngestConfig:
         watch_repo_name=repo_name,
         watch_path_prefix=watch_path_prefix,
         service_id=service_id,
+        github_output_path=github_output_path,
     )
 
 
@@ -106,7 +109,14 @@ def create_app() -> FastAPI:
 
     # GitHub ingestion setup
     config = _load_config()
-    gh_sink = GitHubPrintSink()  # Replace later with a DB sink
+
+    if config.github_output_path:
+        print(f"[config] Writing GitHub change events to file: {config.github_output_path}")
+        gh_sink = FileAppendSink(output_path=config.github_output_path, also_print=False)
+    else:
+        print("[config] GITHUB_OUTPUT_PATH not set; GitHub change events will be printed to console only")
+        gh_sink = GitHubPrintSink()
+
     gh_ingester = GitHubIngester(config=config, sink=gh_sink)
 
     # OTel ingestion setup
@@ -121,6 +131,18 @@ def create_app() -> FastAPI:
     @app.get("/healthz")
     def healthz():
         return {"ok": True}
+    
+    @app.on_event("startup")
+    async def _startup_backfill():
+        owner = app.state.config.watch_repo_owner
+        repo = app.state.config.watch_repo_name
+        print(f"[startup] WATCH_REPO_OWNER={owner} WATCH_REPO_NAME={repo}")
+        if owner and repo:
+            print("[startup] scheduling PR backfill...")
+            asyncio.create_task(app.state.gh_ingester.backfill_pull_requests(owner, repo))
+        else:
+            print("[startup] skipping backfill, missing owner/repo env vars")
+
 
     # -------------------------
     # GitHub webhook endpoint
@@ -220,7 +242,7 @@ def main() -> None:
     except ValueError:
         port = 8000
 
-    uvicorn.run("main:create_app", host=host, port=port, factory=True, reload=False)
+    uvicorn.run("RootScout.main:create_app", host=host, port=port, factory=True, reload=False)
 
 
 if __name__ == "__main__":
