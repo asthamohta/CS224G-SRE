@@ -1,1 +1,34 @@
+# macOS
 .DS_Store
+
+# Python
+*.pyc
+*.pyo
+__pycache__/
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.venv/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project-specific
+*.jsonl
+demo_fixed.py
+demo_fixed_github_events.jsonl
+list_models.py
+
+# Logs
+*.log

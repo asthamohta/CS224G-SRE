@@ -1,72 +1,113 @@
 import json
-import os
+from typing import Any, Dict, List
 from llm_integration.client import MockClient
+from graph.data_parser import enrich_context_from_github_output_path
+
 
 class RCAAgent:
-    def __init__(self, client=None):
+    def __init__(self, client=None, github_output_path=None):
         """
         Initializes the RootScout RCA Agent.
-        If no client is provided, it defaults to a MockClient for safety.
+
+        Args:
+            client: LLM client (defaults to MockClient for safety)
+            github_output_path: Path to GitHub JSONL file for context enrichment.
+                               If not provided, will use GITHUB_OUTPUT_PATH env var.
         """
         self.client = client or MockClient()
+        self.github_output_path = github_output_path
 
-    def analyze(self, context_packet):
+    def analyze(self, context_packet: Dict[str, Any]) -> Dict[str, Any]:
         """
         Generates a professional Root Cause Analysis (RCA) report.
+        Automatically enriches context with GitHub PR/commit data if available.
         """
-        # 1. Construct the expert-level SRE prompt
+        # Enrich context using GitHub JSONL (from instance path or GITHUB_OUTPUT_PATH env var)
+        context_packet = enrich_context_from_github_output_path(
+            context_packet,
+            github_output_path=self.github_output_path,
+            env_var="GITHUB_OUTPUT_PATH",
+            max_events_per_service=25,
+            lookback_hours=168,
+            verbose=True,
+        )
+
         prompt = self._construct_prompt(context_packet)
-        
-        # 2. Call the LLM provider (Gemini/Vertex)
-        print("\n" + "="*50)
+
+        print("\n" + "=" * 50)
         print("📝 DEBUG: PROMPT SENT TO LLM")
-        print("="*50)
+        print("=" * 50)
         print(prompt)
-        print("="*50 + "\n")
-        
+        print("=" * 50 + "\n")
+
         print("🤖 [Agent] Prompt constructed. Sending to LLM...")
-        
         response_str = self.client.generate_content(prompt)
-        
-        # 3. Parse and clean the JSON response
+
         try:
-            # Remove Markdown code blocks if the LLM includes them
             cleaned = response_str.replace("```json", "").replace("```", "").strip()
             return json.loads(cleaned)
         except Exception as e:
-             # Fallback if the LLM returns unstructured text
-             return {
-                 "raw_response": response_str,
-                 "error": f"Failed to parse JSON: {str(e)}"
-             }
+            return {"raw_response": response_str, "error": f"Failed to parse JSON: {str(e)}"}
 
-    def _construct_prompt(self, context):
+    def _construct_prompt(self, context: Dict[str, Any]) -> str:
         """
-        Builds a high-context prompt using an expert on-call SRE persona.
+        Source-agnostic prompt builder.
+
+        Expects node["events"] to contain envelope events:
+          {source, kind, timestamp, summary, payload}
         """
-        # Linearize the context nodes for the LLM to understand the topology
-        service_lines = []
-        for node in context["related_nodes"]:
-            status_emoji = "🔴" if node["status"] == "error" else "🟢"
-            line = f"- Service: {node['service']} {status_emoji}"
-            
-            # Include deployment history if available
-            if node["events"]:
-                for event in node["events"]:
-                    line += f"\n  - Event: {event['type']} (Commit: {event['commit']}) at {event['timestamp']}"
+        service_lines: List[str] = []
+
+        # Safeguards for prompt size
+        max_events_per_node = 12
+        max_patch_chars = 1200
+
+        for node in context.get("related_nodes", []):
+            status_emoji = "🔴" if node.get("status") == "error" else "🟢"
+            line = f"- Service: {node.get('service')} {status_emoji}"
+
+            events = node.get("events") or []
+            for e in events[:max_events_per_node]:
+                src = e.get("source", "unknown")
+                kind = e.get("kind", "event")
+                ts = e.get("timestamp")
+                summary = e.get("summary") or ""
+
+                line += f"\n  - [{src}/{kind}] {summary}".rstrip()
+                if ts:
+                    line += f" at {ts}"
+
+                payload = e.get("payload") or {}
+                if isinstance(payload, dict):
+                    # Helpful fields if present (GitHub, but harmless for others)
+                    if payload.get("filename"):
+                        line += f"\n    filename: {payload.get('filename')}"
+                    if payload.get("status") is not None:
+                        adds = int(payload.get("additions") or 0)
+                        dels = int(payload.get("deletions") or 0)
+                        line += f"\n    status: {payload.get('status')} (+{adds}/-{dels})"
+                    if payload.get("sha"):
+                        line += f"\n    sha: {payload.get('sha')}"
+
+                    patch = payload.get("patch")
+                    if patch:
+                        snippet = patch[:max_patch_chars]
+                        line += f"\n    patch:\n{snippet}"
+                        if len(patch) > max_patch_chars:
+                            line += "\n    [patch truncated]"
+
             service_lines.append(line)
-        
+
         context_str = "\n".join(service_lines)
-        
-        # Expert Persona Prompting
-        prompt = f"""
+
+        return f"""
 ### SYSTEM ROLE
 You are the Lead On-Call Site Reliability Engineer (SRE) for RootScout.
 Your goal is to investigate outages in distributed systems and identify "Patient Zero."
 You are analytical, data-driven, and focused on minimizing Mean Time to Recovery (MTTR).
 
 ### INCIDENT CONTEXT
-An alert has fired on the focus service: **{context['focus_service']}**.
+An alert has fired on the focus service: **{context.get('focus_service')}**.
 The following dependency graph and recent events have been retrieved:
 
 {context_str}
@@ -74,9 +115,9 @@ The following dependency graph and recent events have been retrieved:
 ### INVESTIGATION TASK
 Analyze the topology and event data to:
 1. Identify the root cause service (where the failure originated).
-2. Determine if a specific deployment (commit) is the likely trigger.
+2. Determine if a specific change (deployment, PR, config, etc.) is the likely trigger.
 3. Provide a clear reasoning for how the failure propagated.
-4. Suggest a specific remediation command (e.g., git revert or kubectl rollout undo).
+4. Suggest a specific remediation command (e.g., git revert, kubectl rollout undo, disable feature flag).
 
 ### RESPONSE FORMAT
 Return ONLY a valid JSON object with the following structure:
@@ -86,30 +127,4 @@ Return ONLY a valid JSON object with the following structure:
   "reasoning": "<professional SRE explanation>",
   "recommended_action": "<specific command to fix the issue>"
 }}
-"""
-        return prompt
-
-    def _mock_llm_call(self, prompt, context):
-        """
-        Simulates an LLM response based on heuristics for local testing.
-        """
-        suspect = None
-        for node in context["related_nodes"]:
-            if node["status"] == "error" and node["events"]:
-                suspect = node
-                break
-        
-        if suspect:
-            return {
-                "root_cause_service": suspect["service"],
-                "confidence": 0.95,
-                "reasoning": f"Service {suspect['service']} is reporting errors and correlates with a recent deployment.",
-                "recommended_action": f"Rollback commit {suspect['events'][-1]['commit']}"
-            }
-        else:
-             return {
-                "root_cause_service": "unknown",
-                "confidence": 0.1,
-                "reasoning": "No clear dependency failures or recent changes detected.",
-                "recommended_action": "Escalate to senior on-call engineer."
-            }
+""".strip()
