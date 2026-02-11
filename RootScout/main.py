@@ -120,17 +120,65 @@ def create_app() -> FastAPI:
     gh_ingester = GitHubIngester(config=config, sink=gh_sink)
 
     # OTel ingestion setup
-    otel_sink = OTelPrintSink()  # Replace later with a DB sink
+    # Optional: Enable real-time graph construction from OTLP data
+    enable_graph_builder = os.getenv("ENABLE_GRAPH_BUILDER", "false").lower() == "true"
+
+    if enable_graph_builder:
+        print("[config] ENABLE_GRAPH_BUILDER=true; constructing real-time service graph")
+        from graph.graph_builder import GraphBuilder
+        from RootScout.graph_sink import GraphBuilderSink, ComposedSink
+
+        graph_builder = GraphBuilder()
+        graph_sink = GraphBuilderSink(graph_builder)
+        otel_sink = ComposedSink(graph_sink, OTelPrintSink())  # Both graph + print
+    else:
+        print("[config] ENABLE_GRAPH_BUILDER not set; OTel data will be printed only")
+        otel_sink = OTelPrintSink()
+        graph_builder = None
+
     otel_ingester = OTelIngester(sink=otel_sink)
 
     app = FastAPI(title="RootScout Ingestion Service", version="0.2.0")
     app.state.config = config
     app.state.gh_ingester = gh_ingester
     app.state.otel_ingester = otel_ingester
+    app.state.graph_builder = graph_builder  # May be None if not enabled
 
     @app.get("/healthz")
     def healthz():
         return {"ok": True}
+
+    @app.get("/graph/status")
+    def graph_status():
+        """
+        Returns the current state of the service dependency graph.
+        Only available if ENABLE_GRAPH_BUILDER=true.
+        """
+        if not app.state.graph_builder:
+            raise HTTPException(status_code=404, detail="Graph builder not enabled. Set ENABLE_GRAPH_BUILDER=true")
+
+        graph = app.state.graph_builder.graph
+        nodes = []
+
+        for node_name in graph.nodes():
+            node_data = graph.nodes[node_name]
+            nodes.append({
+                "service": node_name,
+                "status": node_data.get("status", "unknown"),
+                "version": node_data.get("version"),
+                "event_count": len(node_data.get("recent_events", [])),
+                "dependencies": list(graph.successors(node_name)),
+            })
+
+        edges = [{"from": u, "to": v, "latency_ms": data.get("latency", 0)}
+                 for u, v, data in graph.edges(data=True)]
+
+        return {
+            "node_count": len(nodes),
+            "edge_count": len(edges),
+            "nodes": nodes,
+            "edges": edges,
+        }
     
     @app.on_event("startup")
     async def _startup_backfill():
