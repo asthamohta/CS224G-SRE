@@ -41,5 +41,3 @@ Step 7: RCA Analysis Results ✅
 - **Evidence:** OTLP metrics/logs + GitHub PR showing pool size fix
 
 ---
-
-**Next:** See [SETUP_OTEL.md](SETUP_OTEL.md) to connect real applications.
