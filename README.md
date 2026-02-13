@@ -54,51 +54,82 @@ When an alert fires, the system executes a three-stage recovery pipeline:
 
 ### Prerequisites
 
-- Python 3.9+
-- Gemini Developer API Key: Obtain one from [Google AI Studio](https://aistudio.google.com/)
+Before you begin, ensure you have:
+
+1. **Python 3.9 or higher**
+   ```bash
+   python3 --version  # Should be 3.9+
+   ```
+
+2. **pip or uv** (for dependency management)
+   ```bash
+   pip --version
+   ```
+
+3. **Gemini API Key** (free tier available)
+   - Get one from [Google AI Studio](https://aistudio.google.com/)
+   - Click "Get API Key" → Create new key
+   - Copy the key (starts with `AIza...`)
 
 ### Setup & Configuration
 
-1. **Clone the repository** and navigate to the project root:
+1. **Clone and setup:**
    ```bash
-   git clone <repository-url>
-   cd rootscout
+   git clone https://github.com/asthamohta/CS224G-SRE.git
+   cd CS224G-SRE
    ```
 
 2. **Install dependencies:**
    ```bash
-   pip install networkx google-genai python-dotenv
+   # Option 1: pip (recommended for quick start)
+   pip install -r RootScout/requirements.txt
+
+   # Option 2: uv (faster, recommended for teams)
+   uv pip install -r RootScout/requirements.txt
+
+   # Option 3: poetry (for dependency management)
+   poetry install
    ```
 
-3. **Configure Environment:** Create a `.env` file in the root directory and add your API key:
+3. **Configure API key:** Copy the example config and add your key:
    ```bash
-   # .env
-   GEMINI_API_KEY=your_gemini_api_key_here
-   GITHUB_OUTPUT_PATH=github-export-path
-   GITHUB_TOKEN=                 # optional for public repo; add token if you hit rate limits
-   GITHUB_WEBHOOK_SECRET=webhook-secret
+   # Copy example config
+   cp .env.example .env
 
-   WATCH_REPO_OWNER=asthamohta
-   WATCH_REPO_NAME=CS224G-SRE
-   WATCH_PATH_PREFIX=online_boutique
-
-   HOST=0.0.0.0
-   PORT=8000
+   # Edit and add your Gemini API key
+   # GEMINI_API_KEY=AIza...your_actual_key_here
    ```
-### Run the github PR ingester
-```bash
-pip3 install -r RootScout/requirements.txt  
-touch RootScout/__init__.py
-python3 -m RootScout.main
-```
-### Run the Simulation
 
-Execute the core simulation to see the graph-building and LLM reasoning in action:
+   **Important:** The `WATCH_PATH_PREFIX=online_boutique` setting tells the GitHub ingester to only look at PRs that modify files in the `online_boutique/` folder. Change this if you want to watch a different folder.
+### Quick Test (Optional)
+
+Test individual components before running the full demo:
 
 ```bash
-cd graph
-python run_simulation.py
+# View synthetic OTEL data
+python show_synthetic_data.py
+
+# Test OTEL ingester
+python test_otel_ingester.py
+
+# Test GitHub ingester
+python test_github_ingester.py
 ```
+
+### Run the Demo
+
+Execute the complete RCA pipeline:
+
+```bash
+python demo.py
+```
+
+**The demo shows:**
+1. OTEL data ingestion → builds service dependency graph
+2. GitHub PR enrichment → correlates code changes
+3. LLM-powered RCA → identifies root cause with remediation
+
+**Output:** Full incident report with root cause analysis and suggested fix
 
 ---
 
