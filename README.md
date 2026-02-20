@@ -133,7 +133,104 @@ python demo.py
 
 ---
 
-## 4. Expected Output
+## 4. Benchmark & Evaluation
+
+RootScout ships with a benchmark suite that evaluates RCA quality using
+[OpenRCA's](https://github.com/microsoft/OpenRCA) evaluation methodology
+(component accuracy, reason accuracy, datetime accuracy).
+
+### Install eval dependencies
+
+```bash
+pip install -r requirements_eval.txt
+```
+
+> This installs `pandas`, `sentence-transformers`, and `numpy` on top of the
+> existing RootScout requirements. `sentence-transformers` enables semantic
+> matching so LLM paraphrases score correctly.
+
+### Run the benchmark (real Gemini, all 10 scenarios)
+
+```bash
+python eval/run_eval.py
+```
+
+Results are saved under `eval/results/` and a report is printed:
+
+```
+────────────────────────────────────────────────────────
+Class         Total(#)      Correct(#)    Accuracy(%)
+────────────────────────────────────────────────────────
+easy          3             2             66.7%
+medium        3             3             100.0%
+hard          4             3             75.0%
+────────────────────────────────────────────────────────
+Total         10            8             80.0%
+────────────────────────────────────────────────────────
+```
+
+### Other useful flags
+
+```bash
+# Fast smoke test with mock LLM (no API key needed)
+python eval/run_eval.py --mock
+
+# Run only a specific difficulty tier
+python eval/run_eval.py --difficulty easy
+python eval/run_eval.py --difficulty hard
+
+# Re-score an existing predictions CSV without calling the LLM again
+python eval/run_eval.py \
+  --rescore eval/results/<run>_predictions.csv \
+  --query   eval/results/<run>_query.csv
+```
+
+### Include real OpenRCA cases (optional subset, no 80 GB download needed)
+
+Only the two small CSV files from OpenRCA are required (~KB each):
+
+1. Open the [OpenRCA Google Drive](https://drive.google.com/drive/folders/1wGiEnu4OkWrjPxfx5ZTROnU37-5UDoPM)
+2. Navigate to e.g. `Telecom/`
+3. Download **only** `query.csv` and `record.csv`
+4. Place them at `eval/openrca_data/Telecom/`
+
+Then run with those cases appended:
+
+```bash
+python eval/run_eval.py --with-openrca --openrca-system Telecom --openrca-n 5
+```
+
+### What is being measured
+
+Each scenario is scored on three criteria (same as OpenRCA):
+
+| Criterion | Method | Weight |
+|---|---|---|
+| Root cause component | Exact string match | 1/3 |
+| Root cause reason | Cosine similarity ≥ 0.50 (`all-MiniLM-L6-v2`) | 1/3 |
+| Occurrence datetime | Within ±60 seconds of ground truth | 1/3 |
+
+A scenario scores **1.0 (PASS)** only when all three criteria are met.
+Partial scores (0.67, 0.33) indicate which criteria were missed.
+
+### Scenario breakdown
+
+| Task | Difficulty | Failure type |
+|---|---|---|
+| task_1 | easy | DB connection pool exhausted |
+| task_2 | easy | OOM crash |
+| task_3 | easy | Invalid API key |
+| task_4 | medium | Upstream latency cascade |
+| task_5 | medium | Shared DB overload |
+| task_6 | medium | Kafka consumer crash |
+| task_7 | hard | Bad data / red herring |
+| task_8 | hard | Version regression (intermittent) |
+| task_9 | hard | Stale config cache, multi-service |
+| task_10 | hard | Rate-limiter misconfiguration |
+
+---
+
+## 5. Expected Demo Output
 
 The simulation will stream trace data, identify the bottleneck, and trigger the Gemini-powered agent to provide a fix:
 
