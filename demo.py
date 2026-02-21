@@ -31,7 +31,8 @@ from RootScout.test_otel_data import create_test_traces, create_test_metrics, cr
 from graph.graph_builder import GraphBuilder
 from graph.context_retriever import ContextRetriever
 from graph.agent import RCAAgent
-from llm_integration.client import MockClient, GeminiClient
+from llm_integration.client import MockClient, LLMClientFactory
+from slack_integration import SlackNotifier
 
 
 # =============================================================================
@@ -428,14 +429,15 @@ def main():
     # =========================================================================
     print_step(6, "Run Root Cause Analysis")
 
-    # Setup LLM client
+    # Setup LLM client using factory pattern
     print("\n🤖 Initializing LLM client...")
     if DEMO_CONFIG["use_real_llm"]:
         try:
-            llm_client = GeminiClient()
-            print("   ✅ Using Gemini API (2.5 Flash)")
+            llm_provider = os.getenv("LLM_PROVIDER", "gemini")
+            llm_client = LLMClientFactory.create()
+            print(f"   ✅ Using {llm_provider.upper()} API ({llm_client.model_name})")
         except Exception as e:
-            print(f"   ⚠️  Gemini API unavailable: {e}")
+            print(f"   ⚠️  LLM API unavailable: {e}")
             print("   ℹ️  Falling back to MockClient")
             llm_client = MockClient()
     else:

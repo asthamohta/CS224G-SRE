@@ -8,7 +8,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from graph_builder import GraphBuilder
 from context_retriever import ContextRetriever
 from agent import RCAAgent
-from llm_integration.client import GeminiClient, MockClient
+from llm_integration.client import LLMClientFactory, MockClient
 
 # 1. Initialize Engine
 engine = GraphBuilder()
@@ -29,27 +29,16 @@ else:
 
 agent = None
 
-# ✅ USE OPTION B: Gemini API (Developer Flow)
+# ✅ Initialize LLM Client using Factory Pattern
 try:
-    print("🔌 Connecting to Gemini API (2.5 Flash)...")
-    real_client = GeminiClient() # Automatically pulls from .env
-    agent = RCAAgent(client=real_client, github_output_path=github_output_path)
+    llm_provider = os.getenv("LLM_PROVIDER", "gemini")
+    print(f"🔌 Connecting to {llm_provider.upper()} LLM API...")
+    client = LLMClientFactory.create()
+    print(f"✅ Using model: {client.model_name}")
+    agent = RCAAgent(client=client, github_output_path=github_output_path)
 except Exception as e:
-    print(f"⚠️ Gemini API Init Failed: {e}")
-    agent = RCAAgent(client=MockClient(), github_output_path=github_output_path)
-
-#Option B: Gemini API (Free Tier)
-if not agent:
-    try:
-        print(f"🔌 Connecting to Gemini API (Key: {api_key})...")
-        real_client = GeminiClient(api_key=api_key)
-        agent = RCAAgent(client=real_client, github_output_path=github_output_path)
-    except Exception as e:
-        print(f"⚠️ Gemini API Init Failed: {e}")
-
-# Fallback
-if not agent:
-    print("⚠️ Using Mock Client (No LLM connected).")
+    print(f"⚠️  LLM Init Failed: {e}")
+    print(f"   Falling back to Mock Client (no API calls)")
     agent = RCAAgent(client=MockClient(), github_output_path=github_output_path)
 
 
