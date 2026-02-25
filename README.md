@@ -371,6 +371,21 @@ eval/
   benchmark.py             Core single-scenario runner (used by both tracks)
 ```
 
+### Run the Demo
+
+Execute the complete RCA pipeline:
+
+```bash
+python demo.py
+```
+
+**The demo shows:**
+1. OTEL data ingestion → builds service dependency graph
+2. GitHub PR enrichment → correlates code changes
+3. LLM-powered RCA → identifies root cause with remediation
+
+**Output:** Full incident report with root cause analysis and suggested fix
+
 ---
 
 ### Known limitations and future improvements
