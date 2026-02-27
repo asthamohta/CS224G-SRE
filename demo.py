@@ -31,7 +31,7 @@ from RootScout.test_otel_data import create_test_traces, create_test_metrics, cr
 from graph.graph_builder import GraphBuilder
 from graph.context_retriever import ContextRetriever
 from graph.agent import RCAAgent
-from llm_integration.client import MockClient, GeminiClient
+from llm_integration.client import ClaudeClient, MockClient, GeminiClient
 from slack_integration import SlackNotifier
 
 
@@ -505,7 +505,7 @@ def main():
     print("\n🤖 Initializing LLM client...")
     if DEMO_CONFIG["use_real_llm"]:
         try:
-            llm_client = GeminiClient()
+            llm_client = ClaudeClient()
             print("   ✅ Using Gemini API (2.5 Flash)")
         except Exception as e:
             print(f"   ⚠️  Gemini API unavailable: {e}")

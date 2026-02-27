@@ -12,7 +12,7 @@ RootScout's ingestion + RCA pipeline has everything it needs.
 
 import time
 from datetime import timezone
-from typing import Dict, Any, Tuple
+from typing import Dict, Any, Tuple, Optional
 
 from opentelemetry.proto.collector.trace.v1.trace_service_pb2 import ExportTraceServiceRequest
 from opentelemetry.proto.collector.metrics.v1.metrics_service_pb2 import ExportMetricsServiceRequest
@@ -57,7 +57,7 @@ def _make_span(
     span_name: str,
     trace_id: bytes,
     span_id: bytes,
-    parent_span_id: bytes | None,
+    parent_span_id: "Optional[bytes]",
     start_ns: int,
     duration_ns: int,
     is_error: bool,

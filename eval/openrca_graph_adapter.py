@@ -88,11 +88,24 @@ def _kpi_label(kpi_name: str) -> str:
     return kpi_name
 
 
-def _is_anomalous(kpi_name: str, value: float) -> bool:
+def _is_anomalous(kpi_name: str, value: float, avg_value: float = None) -> bool:
+    """
+    Flag a KPI as anomalous if it exceeds an absolute threshold OR if it is
+    significantly elevated relative to its own mean (spike detection).
+    Using both criteria reduces false positives on services that are
+    legitimately busy while still catching sudden spikes.
+    """
     kl = kpi_name.lower()
+    # Absolute threshold check
     for key, threshold in _THRESHOLDS.items():
         if key in kl:
-            return float(value) >= threshold
+            if float(value) >= threshold:
+                return True
+            break
+    # Relative spike check: peak > 2× average (minimum avg guard to avoid div/0)
+    if avg_value is not None and avg_value > 5.0:
+        if float(value) >= 2.0 * avg_value:
+            return True
     return False
 
 
@@ -160,7 +173,7 @@ def build_bank_graph(
                 except Exception:
                     ts_str = "unknown"
 
-                anomalous = _is_anomalous(kpi, peak_val)
+                anomalous = _is_anomalous(kpi, peak_val, avg_value=avg_val)
                 if anomalous:
                     is_error = True
 
@@ -193,7 +206,14 @@ def build_bank_graph(
     _error_kws = {
         "error", "exception", "fail", "oom", "killed",
         "timeout", "refused", "lost", "drop", "warn",
-        "outofmemory", "gc overhead",
+        "outofmemory", "gc overhead", "critical", "fatal",
+        "connection reset", "broken pipe", "no space left",
+        "too many open files", "deadlock", "stack overflow",
+        "heap space", "cpu throttl", "evict",
+    }
+    # Words that indicate a false-positive error mention (e.g. "no errors found")
+    _false_pos_kws = {
+        "no error", "no errors", "0 error", "0 errors", "successfully",
     }
 
     if not logs_df.empty and "cmdb_id" in logs_df.columns:
@@ -225,13 +245,29 @@ def build_bank_graph(
                         "value":    val[:300],
                     },
                 }
-                if any(kw in val.lower() for kw in _error_kws):
+                val_lower = val.lower()
+                is_error_log = (
+                    any(kw in val_lower for kw in _error_kws)
+                    and not any(fp in val_lower for fp in _false_pos_kws)
+                )
+                if is_error_log:
                     error_events.append(event)
                 else:
                     other_events.append(event)
 
-            # Prefer error-pattern logs; cap at 5 events per node
-            selected = (error_events[:3] + other_events[:2])[:5]
+            # Sort each bucket chronologically so the LLM sees timeline order
+            def _log_ts(e):
+                try:
+                    from datetime import datetime as _dt
+                    return _dt.strptime(e["timestamp"], "%Y-%m-%d %H:%M:%S").timestamp()
+                except Exception:
+                    return 0.0
+
+            error_events.sort(key=_log_ts)
+            other_events.sort(key=_log_ts)
+
+            # Prefer error-pattern logs; cap at 8 events per node
+            selected = (error_events[:5] + other_events[:3])[:8]
             node["recent_events"].extend(selected)
 
     return gb
