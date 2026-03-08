@@ -40,12 +40,14 @@ from slack_integration import SlackNotifier
 # =============================================================================
 
 DEMO_CONFIG = {
-    "show_raw_otlp": False,  # Set to True to see raw OTLP data
+    "show_raw_otlp": True,  # Set to True to see raw OTLP data
+    "show_synthetic_data": True,  # Show synthetic data samples
     "show_graph_details": True,  # Show detailed graph state
     "use_real_llm": True,  # Try to use Gemini API (falls back to mock)
     "create_github_data": True,  # Create synthetic GitHub events
     "pause_between_steps": 1.0,  # Seconds to pause between demo steps
     "show_llm_prompt": True,  # Show the full prompt sent to LLM
+    "show_component_explanations": True,  # Show what each component does
 }
 
 
@@ -255,6 +257,48 @@ def print_llm_prompt_preview(context_packet):
 # MAIN DEMO SCRIPT
 # =============================================================================
 
+def print_component_explanation(component_name, description):
+    """Print component explanation."""
+    print(f"\n💡 {component_name}")
+    print(f"   └─ {description}")
+
+
+def show_synthetic_data_sample(traces_req, logs_req):
+    """Show sample of synthetic data being used."""
+    print("\n📦 SYNTHETIC DATA SAMPLE:")
+
+    # Show trace sample
+    if traces_req.resource_spans:
+        rs = traces_req.resource_spans[0]
+        service = next((a.value.string_value for a in rs.resource.attributes if a.key == "service.name"), "unknown")
+        if rs.scope_spans and rs.scope_spans[0].spans:
+            span = rs.scope_spans[0].spans[0]
+            print(f"\n   📊 Sample Trace Span:")
+            print(f"      Service: {service}")
+            print(f"      Span: {span.name}")
+            status = "ERROR" if span.status.code == 2 else "OK"
+            print(f"      Status: {status}")
+            if span.status.message:
+                print(f"      Error: {span.status.message}")
+
+    # Show log sample
+    if logs_req.resource_logs:
+        rl = logs_req.resource_logs[0]
+        service = next((a.value.string_value for a in rl.resource.attributes if a.key == "service.name"), "unknown")
+        if rl.scope_logs and rl.scope_logs[0].log_records:
+            log = rl.scope_logs[0].log_records[-1]  # Last log (error)
+            print(f"\n   📝 Sample Log Record:")
+            print(f"      Service: {service}")
+            print(f"      Severity: {log.severity_text}")
+            # Get body value
+            body = ""
+            if log.body.WhichOneof("value") == "string_value":
+                body = log.body.string_value
+            if len(body) > 100:
+                body = body[:100] + "..."
+            print(f"      Message: {body}")
+
+
 def main():
     print_banner("🚀 RootScout End-to-End Demo", char="═")
     print()
@@ -262,6 +306,31 @@ def main():
     print("Services: frontend → auth-service, cart-service → database")
     print("Issue: cart-service database connection timeout (15% error rate)")
     print()
+
+    if DEMO_CONFIG["show_component_explanations"]:
+        print("\n" + "─" * 80)
+        print("SYSTEM COMPONENTS:")
+        print("─" * 80)
+        print_component_explanation(
+            "GitHub Ingester",
+            "Monitors code repos via webhooks, filters changes by service path"
+        )
+        print_component_explanation(
+            "OTEL Ingester",
+            "Parses OpenTelemetry traces/logs/metrics into structured records"
+        )
+        print_component_explanation(
+            "Graph Builder",
+            "Builds service dependency graph from traces, tracks health status"
+        )
+        print_component_explanation(
+            "Context Retriever",
+            "Extracts relevant service info + recent events for failing service"
+        )
+        print_component_explanation(
+            "RCA Agent (LLM)",
+            "Analyzes context using Gemini to identify root cause and suggest fix"
+        )
 
     pause()
 
@@ -307,6 +376,9 @@ def main():
         service = next((a.value.string_value for a in rl.resource.attributes if a.key == "service.name"), "unknown")
         log_count = sum(len(sl.log_records) for sl in rl.scope_logs)
         print(f"   • {service}: {log_count} log record(s)")
+
+    if DEMO_CONFIG["show_synthetic_data"]:
+        show_synthetic_data_sample(traces_req, logs_req)
 
     pause()
 
@@ -469,6 +541,18 @@ def main():
 
     print("\n🔍 Analyzing... (sending context to LLM)")
     analysis = agent.analyze(context)
+
+    # =========================================================================
+    # Send to Slack (if configured)
+    # =========================================================================
+    print("\n📤 Sending RCA analysis to Slack...")
+    slack_notifier = SlackNotifier()
+    slack_notifier.send_rca_analysis(
+        analysis=analysis,
+        incident_title="Checkout Failures Detected (Demo)",
+        focus_service=failing_service,
+        alert_severity="warning"
+    )
 
     pause()
 

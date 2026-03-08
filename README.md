@@ -1,150 +1,144 @@
-RootScout is an agentic system that automates the "investigation phase" of incident response. While standard tools (PagerDuty) only notify humans, and generic AIOps tools simply correlate metric spikes, RootScout acts as an "AI Engineer." It ingests telemetry (metrics, traces) and code changes (GitHub PRs) to build a real-time Causal Dependency Graph.
-When an alert fires, the system:
-- **Deductively Isolates:** Traverses the trace graph to mathematically pinpoint the failing node (e.g., "Service A is healthy, but waiting on Service B").
-Agentic Investigation: A code-aware LLM agent then "logs into" that specific node, retrieves recent commits/logs, and formulates a hypothesis (e.g., "Latency spike matches the timestamp of the v2.1 deployment").
-- **Resolution:** It generates a human-readable "Incident Brief" with the exact root cause and suggested rollback.
-- **Stretch Goal:** A proactive "Auditor" module that analyzes historical alert patterns to identify "noisy" monitors and predict resource saturation (e.g., memory leaks) before outages occur.
+# RootScout
 
+RootScout is an agentic system for automated root cause analysis (RCA) in distributed systems. It ingests telemetry (OTel traces, metrics, logs) and GitHub PR data, builds a causal dependency graph, and uses an LLM to identify which service caused an incident and why.
 
-# RootScout: Graph-Augmented RCA Agent 🕵️‍♂️
+## How it works
 
-> **Project:** RootScout — Autonomous SRE Agent  
-> **Component:** Causal Graph Engine + LLM Reasoning Layer (MVP)
+1. **Graph construction** — Trace spans are ingested and wired into a directed dependency graph. Each node tracks health status and recent events.
+2. **Fault isolation** — When an alert fires, BFS traversal from the alerting service collects the subgraph of suspects.
+3. **LLM reasoning** — A Gemini (or Claude) agent receives the context packet and returns a structured root cause report.
 
-RootScout is an agentic system designed to automate the high-toil "investigation phase" of incident response. While traditional tools like PagerDuty simply notify humans, and legacy AIOps tools merely correlate metric spikes, **RootScout acts as an AI SRE**. By ingesting real-time telemetry (traces) and version control data (GitHub PRs), it builds a **Causal Dependency Graph** to identify "Patient Zero" with deterministic precision.
-
----
-
-## 1. The Core Intuition: "The Blueprint & The Detective"
-
-In a complex distributed system, an alert in one service is often just a symptom of a failure elsewhere.
-
-### The Problem
-A fire alarm (Alert) goes off, but in a skyscraper with 50 floors, finding the source is slow.
-
-### The RootScout Way
-1. **The Blueprint (The Graph):** RootScout maintains a live "blueprint" of how services talk to each other. If the Kitchen alarm trips, but the gas line comes from the Basement, RootScout knows where to look first.
-2. **The Investigation:** The agent ignores the Attic and Bedrooms. It zooms into the Basement (the dependency), retrieves the latest "maintenance logs" (GitHub Diffs), and identifies exactly which pipe (Commit) broke.
-
-### Architecture Flow
-
-```mermaid
-graph LR
-    A[Stream: Traces] -->|Builds Edges| C(Graph Engine)
-    B[Stream: Diffs] -->|Tags Nodes| C
-    C -->|Query| D{Fault Isolation}
-    D -->|Result| E["Root Cause: PaymentService<br/>Commit: a1b2c"]
-```
-
----
-
-## 2. Technical Architecture
-
-When an alert fires, the system executes a three-stage recovery pipeline:
-
-1. **Deductive Isolation:** The `GraphBuilder` traverses the OTel trace graph to mathematically pinpoint the failing leaf node (e.g., "Service A is healthy, but waiting on Service B").
-
-2. **Agentic Investigation:** A code-aware LLM agent (powered by Gemini 2.5 Flash) "logs into" the suspect node, analyzes recent logs/commits, and formulates a technical hypothesis.
-
-3. **Resolution:** The agent generates a human-readable Incident Brief including the specific root cause and a suggested remediation command (e.g., `git revert` or `kubectl rollout undo`).
-
----
-
-## 3. Getting Started
+## Setup
 
 ### Prerequisites
 
 - Python 3.9+
-- Gemini Developer API Key: Obtain one from [Google AI Studio](https://aistudio.google.com/)
+- Gemini API key from [Google AI Studio](https://aistudio.google.com/)
 
-### Setup & Configuration
+### Install
 
-1. **Clone the repository** and navigate to the project root:
-   ```bash
-   git clone <repository-url>
-   cd rootscout
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   pip install networkx google-genai python-dotenv
-   ```
-
-3. **Configure Environment:** Create a `.env` file in the root directory and add your API key:
-   ```bash
-   # .env
-   GEMINI_API_KEY=your_gemini_api_key_here
-   GITHUB_OUTPUT_PATH=github-export-path
-   GITHUB_TOKEN=                 # optional for public repo; add token if you hit rate limits
-   GITHUB_WEBHOOK_SECRET=webhook-secret
-
-   WATCH_REPO_OWNER=asthamohta
-   WATCH_REPO_NAME=CS224G-SRE
-   WATCH_PATH_PREFIX=online_boutique
-
-   HOST=0.0.0.0
-   PORT=8000
-   ```
-### Run the github PR ingester
 ```bash
-pip3 install -r RootScout/requirements.txt  
-touch RootScout/__init__.py
-python3 -m RootScout.main
+git clone https://github.com/asthamohta/CS224G-SRE.git
+cd CS224G-SRE
+pip install -r requirements.txt
 ```
-### Run the Simulation
 
-Execute the core simulation to see the graph-building and LLM reasoning in action:
+### Configure
 
 ```bash
-cd graph
-python run_simulation.py
+cp .env.example .env
+# Edit .env and set GEMINI_API_KEY=your_key_here
+```
+
+### Run the demo
+
+```bash
+python demo.py
+```
+
+The demo ingests synthetic OTel data, builds a dependency graph, and runs LLM-powered RCA on a simulated cart-service failure.
+
+---
+
+## Evaluation
+
+Two evaluation tracks measure whether the agent correctly identifies the component, reason, and datetime of a fault, using [OpenRCA](https://github.com/microsoft/OpenRCA) scoring.
+
+Install eval dependencies:
+
+```bash
+pip install -r requirements_eval.txt
+```
+
+### Scoring
+
+Each incident is scored on up to three criteria depending on the task type:
+
+| Criterion | Match method |
+|---|---|
+| Root cause component | Exact string match |
+| Root cause reason | Cosine similarity >= 0.50 (all-MiniLM-L6-v2) |
+| Occurrence datetime | Within +/- 60 s of ground truth |
+
+A scenario passes only when every applicable criterion is met.
+
+---
+
+### Track A — Synthetic benchmark
+
+Ten hand-crafted scenarios with known topology and injected faults. Useful for iterating on the agent prompt without running against real data.
+
+```bash
+python eval/run_eval.py              # all 10 scenarios (requires Gemini API key)
+python eval/run_eval.py --mock       # mock LLM, no API key needed
+python eval/run_eval.py --difficulty easy
+```
+
+Sample result:
+
+```
+Class         Total     Correct   Accuracy
+easy          3         2         66.7%
+medium        3         3         100.0%
+hard          4         3         75.0%
+Total         10        8         80.0%
 ```
 
 ---
 
-## 4. Expected Output
+### Track B — Real OpenRCA Bank telemetry
 
-The simulation will stream trace data, identify the bottleneck, and trigger the Gemini-powered agent to provide a fix:
+27 incidents from the [OpenRCA Bank dataset](https://github.com/microsoft/OpenRCA) — a Java-based banking microservices system with 14 pods. Requires the `Bank/` dataset directory at the project root:
 
-```plaintext
---- LLM SETUP ---
-🔌 Connecting to Gemini API (2.5 Flash)...
-
---- STREAMING DATA START ---
-[Graph] Updated dependency: frontend -> checkout_service
-[Graph] Tagged payment_service with commit a1b2c3d_bad_commit
-[Graph] Updated dependency: checkout_service -> payment_service
---- STREAMING FINISHED ---
-
-🚨 ALERT received on: frontend
-🔍 Retrieving Context Packet...
-
-📡 Sending request to gemini-2.5-flash...
-
-📋 FINAL INCIDENT REPORT
-{
-  "root_cause_service": "payment_service",
-  "confidence": 0.98,
-  "reasoning": "The frontend alert is a downstream symptom of a failure in the payment_service. Traces show an ERROR state with 5000ms latency immediately following deployment a1b2c3d_bad_commit.",
-  "recommended_action": "git revert a1b2c3d_bad_commit"
-}
+```
+Bank/
+  query.csv
+  record.csv
+  telemetry/
+    2021_03_04/
+      metric/metric_container.csv
+      log/log_service.csv
+    2021_03_06/ ...
 ```
 
-### Detailed Output Breakdown
+```bash
+python eval/run_openrca_eval.py              # 27 Bank incidents (requires Gemini API key)
+python eval/run_openrca_eval.py --mock       # no API key needed
+python eval/run_openrca_eval.py --n 5        # quick test with 5 incidents
+python eval/run_openrca_eval.py --bank-dir /path/to/Bank
+```
 
-**Phase 1: Graph Construction**
-- The system streams in trace data and builds the service dependency graph
-- Each edge represents a service-to-service call
-- Nodes are tagged with recent commit hashes from GitHub
+Sample result:
 
-**Phase 2: Fault Isolation**
-- When an alert fires on `frontend`, the graph is traversed to find all downstream dependencies
-- The system checks each service's health status and recent deployments
-- `payment_service` is identified as the bottleneck with ERROR state
+```
+BANK BENCHMARK SUMMARY  (real OpenRCA telemetry)
+Class         Total     Full pass   Avg score
+easy          2         1           0.71
+medium        18        4           0.52
+hard          7         1           0.38
+Total         27        6           0.49
+```
 
-**Phase 3: LLM Investigation**
-- The Gemini agent receives a context packet containing the suspect service, recent commits, and trace data
-- It generates a hypothesis explaining the causal chain
-- A remediation action is suggested with high confidence
+Scores are lower on real data than synthetic because real incidents have noisy signals, cross-pod resource contention, and ambiguous telemetry.
 
 ---
+
+## Known limitations
+
+- **Datetime scoring on Track B is not genuine.** The fault timestamp is taken directly from `record.csv` rather than predicted by the agent, so datetime criteria always pass. A real fix would add a `root_cause_datetime` field to the agent's response schema.
+- **No trace topology on real data.** `trace_span.csv` uses internal container IDs that don't map to pod names, so a static hand-written topology is used instead.
+- **Noisy anomaly detection.** KPI thresholds are heuristic; during real incidents many pods spike simultaneously, making causal isolation harder.
+- **Single system.** Only the Bank system is evaluated. OpenRCA also includes Telecom and Market.
+
+---
+
+## Project layout
+
+```
+graph/             Graph construction, context retrieval, RCA agent
+llm_integration/   Gemini and Claude client wrappers
+eval/              Evaluation scripts and scenarios
+RootScout/         OTel ingester service (FastAPI)
+Ingester/          GitHub webhook ingester
+slack_integration/ Slack notification connector
+```
