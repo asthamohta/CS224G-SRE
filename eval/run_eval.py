@@ -6,6 +6,9 @@ Usage
 # Run all 10 synthetic scenarios with Gemini (real LLM):
     python eval/run_eval.py
 
+# Run Online Boutique (harder) dataset:
+    python eval/run_eval.py --dataset ob
+
 # Run with mock LLM (for fast smoke-testing):
     python eval/run_eval.py --mock
 
@@ -33,6 +36,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from eval.scenarios import SYNTHETIC_SCENARIOS
 from eval.benchmark import (
     run_benchmark,
+    run_ob_benchmark,
     results_to_prediction_csv,
     scenarios_to_query_csv,
 )
@@ -43,6 +47,18 @@ from llm_integration.client import get_client
 def main():
     parser = argparse.ArgumentParser(
         description="RootScout benchmark runner (OpenRCA evaluation methodology)"
+    )
+
+    # Dataset selection
+    parser.add_argument(
+        "--dataset",
+        choices=["synthetic", "ob"],
+        default="synthetic",
+        help=(
+            "Which scenario dataset to run: "
+            "'synthetic' = original 10 generic scenarios (default), "
+            "'ob' = 10 harder Online Boutique scenarios with GitHub events + noise"
+        ),
     )
 
     # Scenario selection
@@ -130,16 +146,21 @@ def main():
     # -----------------------------------------------------------------------
     # Build scenario list
     # -----------------------------------------------------------------------
-    scenarios = list(SYNTHETIC_SCENARIOS)
+    use_ob = args.dataset == "ob"
 
-    if args.with_openrca:
-        from eval.openrca_loader import load_openrca_scenarios
-        openrca_cases = load_openrca_scenarios(
-            system=args.openrca_system,
-            max_cases=args.openrca_n,
-            task_index_offset=len(scenarios),
-        )
-        scenarios.extend(openrca_cases)
+    if use_ob:
+        from eval.online_boutique_scenarios import OB_SCENARIOS
+        scenarios = list(OB_SCENARIOS)
+    else:
+        scenarios = list(SYNTHETIC_SCENARIOS)
+        if args.with_openrca:
+            from eval.openrca_loader import load_openrca_scenarios
+            openrca_cases = load_openrca_scenarios(
+                system=args.openrca_system,
+                max_cases=args.openrca_n,
+                task_index_offset=len(scenarios),
+            )
+            scenarios.extend(openrca_cases)
 
     # Filter by difficulty
     if args.difficulty != "all":
@@ -155,11 +176,13 @@ def main():
         sys.exit(1)
 
     model_label = "MockClient" if args.mock else args.model
+    dataset_label = "Online Boutique (harder)" if use_ob else "Synthetic"
     print(f"\nRootScout Benchmark")
+    print(f"  Dataset    : {dataset_label}")
     print(f"  Scenarios  : {len(scenarios)}")
     print(f"  Difficulty : {args.difficulty}")
     print(f"  LLM        : {model_label}")
-    if args.with_openrca:
+    if not use_ob and args.with_openrca:
         print(f"  OpenRCA    : {args.openrca_system} (up to {args.openrca_n} cases)")
 
     # -----------------------------------------------------------------------
@@ -186,16 +209,18 @@ def main():
         results_csv = args.output
     else:
         os.makedirs("eval/results", exist_ok=True)
-        results_csv = f"eval/results/run_{timestamp}.csv"
+        prefix = "ob" if use_ob else "run"
+        results_csv = f"eval/results/{prefix}_{timestamp}.csv"
 
     pred_csv = results_csv.replace(".csv", "_predictions.csv")
     query_csv = results_csv.replace(".csv", "_query.csv")
     report_csv = results_csv.replace(".csv", "_report.csv")
 
     # -----------------------------------------------------------------------
-    # Run benchmark
+    # Run benchmark (OB uses noise-aware generator + GitHub JSONL enrichment)
     # -----------------------------------------------------------------------
-    results = run_benchmark(
+    runner = run_ob_benchmark if use_ob else run_benchmark
+    results = runner(
         scenarios=scenarios,
         llm_client=llm_client,
         output_csv=results_csv,
