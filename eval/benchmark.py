@@ -186,10 +186,30 @@ def wire_graph(graph_builder: GraphBuilder, scenario: Dict[str, Any]) -> None:
 # Single scenario runner
 # ---------------------------------------------------------------------------
 
+def wire_ob_graph(graph_builder: GraphBuilder, scenario: Dict[str, Any]) -> None:
+    """
+    Extended graph-wiring for Online Boutique scenarios.
+
+    In addition to what wire_graph() does, this injects scenario["noise_events"]
+    into non-root-cause service nodes so the LLM encounters realistic but
+    misleading signals (healthy-service warnings, red-herring deploy logs, etc.).
+    """
+    wire_graph(graph_builder, scenario)
+
+    noise_events = scenario.get("noise_events", {})
+    for svc, events in noise_events.items():
+        if svc not in graph_builder.graph:
+            graph_builder._ensure_node(svc)
+        node = graph_builder.graph.nodes[svc]
+        for e in events:
+            node["recent_events"].append(e)
+
+
 def run_scenario(
     scenario: Dict[str, Any],
     llm_client,
     verbose: bool = True,
+    github_output_path: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
     Run a single benchmark scenario end-to-end.
@@ -243,7 +263,7 @@ def run_scenario(
             print(f"  Context    : {related}")
 
         # 5. Run RCA agent
-        agent = RCAAgent(client=llm_client, github_output_path=None)
+        agent = RCAAgent(client=llm_client, github_output_path=github_output_path)
         agent_output = agent.analyze(context)
         result["agent_output"] = agent_output
 
@@ -274,6 +294,152 @@ def run_scenario(
             print(f"  ERROR      : {e}")
 
     return result
+
+
+# ---------------------------------------------------------------------------
+# Online Boutique scenario runner (uses ob-specific generator + wirer)
+# ---------------------------------------------------------------------------
+
+def run_ob_scenario(
+    scenario: Dict[str, Any],
+    llm_client,
+    verbose: bool = True,
+) -> Dict[str, Any]:
+    """
+    Run a single Online Boutique benchmark scenario end-to-end.
+
+    Differences from run_scenario():
+    - Uses generate_ob_data() for richer OTLP (noise, silent-fault semantics)
+    - Uses wire_ob_graph() to inject noise_events into non-root-cause nodes
+    - Writes scenario["github_events"] to a temp JSONL and passes the path to
+      RCAAgent; cleans up the temp file after the agent completes.
+    """
+    from eval.online_boutique_data_generator import generate_ob_data
+
+    scenario_id = scenario["id"]
+    if verbose:
+        print(f"\n{'─'*60}")
+        print(f"Running [{scenario['task_index']}] {scenario['title']}")
+        print(f"  Difficulty : {scenario['difficulty']}")
+        print(f"  Expected   : {scenario['ground_truth']['root_cause_component']}")
+        print(f"  Observed at: {scenario['observed_service']}")
+        silent = scenario["fault_injection"].get("silent", False)
+        if silent:
+            print(f"  Fault type : SILENT (returns 200, wrong/degraded data)")
+
+    result: Dict[str, Any] = {
+        "scenario_id": scenario_id,
+        "task_index": scenario["task_index"],
+        "difficulty": scenario["difficulty"],
+        "title": scenario["title"],
+        "prediction": "",
+        "score": 0.0,
+        "passing": [],
+        "failing": [],
+        "agent_output": {},
+        "error": None,
+    }
+
+    github_path: Optional[str] = None
+    try:
+        # 1. Generate OB OTLP data + write GitHub JSONL temp file
+        traces, metrics, logs, github_path = generate_ob_data(scenario)
+
+        # 2. Fresh graph for each scenario
+        graph_builder = GraphBuilder()
+        graph_sink = GraphBuilderSink(graph_builder)
+        ingester = OTelIngester(sink=graph_sink)
+
+        ingester.ingest_traces(traces)
+        ingester.ingest_metrics(metrics)
+        ingester.ingest_logs(logs)
+
+        # 3. Wire topology + inject noise events into non-root-cause nodes
+        wire_ob_graph(graph_builder, scenario)
+
+        # 4. Retrieve context for the alerting (observed) service
+        retriever = ContextRetriever(graph_builder)
+        context = retriever.get_context(scenario["observed_service"])
+
+        if verbose:
+            related = [n["service"] for n in context.get("related_nodes", [])]
+            print(f"  Context    : {related}")
+            if github_path:
+                n_events = len(scenario.get("github_events", []))
+                print(f"  GH events  : {n_events} (written to {github_path})")
+
+        # 5. Run RCA agent (GitHub JSONL enrichment happens inside agent.analyze)
+        agent = RCAAgent(client=llm_client, github_output_path=github_path)
+        agent_output = agent.analyze(context)
+        result["agent_output"] = agent_output
+
+        predicted_component = agent_output.get("root_cause_service", "")
+        predicted_dt = agent_output.get("root_cause_datetime", "")
+        predicted_reason = agent_output.get("reasoning", "")
+
+        # 6. Format prediction in OpenRCA JSON format
+        prediction_str = format_prediction(agent_output, scenario)
+        result["prediction"] = prediction_str
+
+        # 7. Evaluate
+        scoring_points = scenario["scoring_points"]
+        passing, failing, score, details = openrca_evaluate(prediction_str, scoring_points)
+        result["score"] = score
+        result["passing"] = passing
+        result["failing"] = failing
+
+        if verbose:
+            from eval.evaluate import _SIM_THRESHOLD
+            _log_criterion_details(details, predicted_component, predicted_dt, _SIM_THRESHOLD, predicted_reason)
+            verdict = "PASS" if score == 1.0 else f"PARTIAL ({score:.2f})" if score > 0 else "FAIL"
+            print(f"  Score      : {score:.2f} [{verdict}]")
+
+    except Exception as e:
+        result["error"] = traceback.format_exc()
+        if verbose:
+            print(f"  ERROR      : {e}")
+    finally:
+        # Clean up temp GitHub JSONL file
+        if github_path and os.path.exists(github_path):
+            try:
+                os.unlink(github_path)
+            except OSError:
+                pass
+
+    return result
+
+
+def run_ob_benchmark(
+    scenarios: List[Dict[str, Any]],
+    llm_client=None,
+    output_csv: Optional[str] = None,
+    verbose: bool = True,
+) -> List[Dict[str, Any]]:
+    """Run all Online Boutique scenarios and optionally save results to CSV."""
+    if llm_client is None:
+        try:
+            llm_client = GeminiClient()
+            if verbose:
+                print("[benchmark] Using GeminiClient")
+        except Exception as e:
+            if verbose:
+                print(f"[benchmark] GeminiClient unavailable ({e}), using MockClient")
+            llm_client = MockClient()
+
+    results = []
+    for scenario in scenarios:
+        result = run_ob_scenario(scenario, llm_client=llm_client, verbose=verbose)
+        results.append(result)
+        time.sleep(0.5)
+
+    _print_summary(results, verbose=verbose)
+
+    if output_csv:
+        _save_results(results, output_csv)
+        if verbose:
+            print(f"\n[benchmark] Results saved to {output_csv}")
+
+    return results
 
 
 # ---------------------------------------------------------------------------
