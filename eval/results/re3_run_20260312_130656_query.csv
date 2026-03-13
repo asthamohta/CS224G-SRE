@@ -1,0 +1,7 @@
+instruction,task_index,scoring_points
+Code fault injected into adservice (fault type F4: incorrect control flow) at 2024-11-18 04:51:44 UTC. Alert expected at frontend (Online Boutique entry point).,task_6,"The only predicted root cause component is adservice
+The only predicted root cause reason is application logic error caused by incorrect control flow or wrong return value leading to downstream failures"
+Code fault injected into adservice (fault type F4: incorrect control flow) at 2024-11-22 11:59:03 UTC. Alert expected at frontend (Online Boutique entry point).,task_6,"The only predicted root cause component is adservice
+The only predicted root cause reason is application logic error caused by incorrect control flow or wrong return value leading to downstream failures"
+Code fault injected into adservice (fault type F4: incorrect control flow) at 2024-11-23 12:39:02 UTC. Alert expected at frontend (Online Boutique entry point).,task_6,"The only predicted root cause component is adservice
+The only predicted root cause reason is application logic error caused by incorrect control flow or wrong return value leading to downstream failures"

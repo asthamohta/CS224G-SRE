@@ -107,16 +107,22 @@ You are analytical, data-driven, and focused on minimizing Mean Time to Recovery
 An alert has fired on the focus service: **{context.get('focus_service')}**.
 The following dependency graph and recent events have been retrieved.
 All timestamps are in UTC+8 (CST).
+{f"{chr(10)}⚠️  {context['incident_hint']}" if context.get('incident_hint') else ""}
 
 {context_str}
 
 ### INVESTIGATION TASK
 Analyze the topology and event data to:
-1. Identify the root cause service (where the failure originated).
+1. Identify the root cause service (where the failure originated). This is the service whose CODE is faulty, not one that merely propagates errors downstream.
 2. Estimate when the fault first began, based on the earliest anomalous events you can observe.
-3. Determine if a specific change (deployment, PR, config, etc.) is the likely trigger.
-4. Provide a clear reasoning for how the failure propagated.
-5. Suggest a specific remediation command (e.g., git revert, kubectl rollout undo, disable feature flag).
+3. In your reasoning, explicitly classify the application-level fault type. Choose EXACTLY ONE of:
+   - "incorrect parameter or argument passed to a function" (wrong parameter value causing errors)
+   - "missing function call leading to incorrect or incomplete behaviour" (expected function was not called)
+   - "unhandled exception due to missing exception handler" (exception propagates because no handler exists)
+   - "incorrect control flow or wrong return value leading to downstream failures" (logic error causing wrong behaviour)
+   - "wrong return value from a function causing incorrect behaviour in downstream logic" (function returns wrong value)
+4. Provide a clear reasoning for how the failure propagated through the system.
+5. Suggest a specific remediation command (e.g., git revert, kubectl rollout undo, fix the faulty code).
 
 ### RESPONSE FORMAT
 Return ONLY a valid JSON object with the following structure:
@@ -124,7 +130,7 @@ Return ONLY a valid JSON object with the following structure:
   "root_cause_service": "<service_name>",
   "root_cause_datetime": "<YYYY-MM-DD HH:MM:SS — earliest timestamp when the fault began, in UTC+8>",
   "confidence": <float between 0.0 and 1.0>,
-  "reasoning": "<professional SRE explanation>",
+  "reasoning": "<professional SRE explanation that MUST include the fault type classification from step 3>",
   "recommended_action": "<specific command to fix the issue>"
 }}
 """.strip()

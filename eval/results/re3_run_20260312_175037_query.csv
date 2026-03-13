@@ -1,0 +1,25 @@
+instruction,task_index,scoring_points
+Code fault injected into adservice (fault type F4: incorrect control flow) at 2024-11-18 04:51:44 UTC. Alert expected at frontend (Online Boutique entry point).,task_6,"The only predicted root cause component is adservice
+The only predicted root cause reason is application logic error caused by incorrect control flow or wrong return value leading to downstream failures"
+Code fault injected into adservice (fault type F4: incorrect control flow) at 2024-11-22 11:59:03 UTC. Alert expected at frontend (Online Boutique entry point).,task_6,"The only predicted root cause component is adservice
+The only predicted root cause reason is application logic error caused by incorrect control flow or wrong return value leading to downstream failures"
+Code fault injected into adservice (fault type F4: incorrect control flow) at 2024-11-23 12:39:02 UTC. Alert expected at frontend (Online Boutique entry point).,task_6,"The only predicted root cause component is adservice
+The only predicted root cause reason is application logic error caused by incorrect control flow or wrong return value leading to downstream failures"
+Code fault injected into emailservice (fault type F4: incorrect control flow) at 2024-11-18 07:51:52 UTC. Alert expected at frontend (Online Boutique entry point).,task_6,"The only predicted root cause component is emailservice
+The only predicted root cause reason is application logic error caused by incorrect control flow or wrong return value leading to downstream failures"
+Code fault injected into emailservice (fault type F4: incorrect control flow) at 2024-11-22 14:59:10 UTC. Alert expected at frontend (Online Boutique entry point).,task_6,"The only predicted root cause component is emailservice
+The only predicted root cause reason is application logic error caused by incorrect control flow or wrong return value leading to downstream failures"
+Code fault injected into emailservice (fault type F4: incorrect control flow) at 2024-11-23 15:39:09 UTC. Alert expected at frontend (Online Boutique entry point).,task_6,"The only predicted root cause component is emailservice
+The only predicted root cause reason is application logic error caused by incorrect control flow or wrong return value leading to downstream failures"
+Code fault injected into adservice (fault type F5: wrong return value) at 2024-11-18 05:17:28 UTC. Alert expected at frontend (Online Boutique entry point).,task_3,"The only predicted root cause component is adservice
+The only predicted root cause reason is application error caused by wrong return value from a function, causing incorrect behaviour in downstream logic"
+Code fault injected into adservice (fault type F5: wrong return value) at 2024-11-22 12:24:47 UTC. Alert expected at frontend (Online Boutique entry point).,task_3,"The only predicted root cause component is adservice
+The only predicted root cause reason is application error caused by wrong return value from a function, causing incorrect behaviour in downstream logic"
+Code fault injected into adservice (fault type F5: wrong return value) at 2024-11-23 13:04:46 UTC. Alert expected at frontend (Online Boutique entry point).,task_3,"The only predicted root cause component is adservice
+The only predicted root cause reason is application error caused by wrong return value from a function, causing incorrect behaviour in downstream logic"
+Code fault injected into emailservice (fault type F5: wrong return value) at 2024-11-18 08:17:36 UTC. Alert expected at frontend (Online Boutique entry point).,task_3,"The only predicted root cause component is emailservice
+The only predicted root cause reason is application error caused by wrong return value from a function, causing incorrect behaviour in downstream logic"
+Code fault injected into emailservice (fault type F5: wrong return value) at 2024-11-22 15:24:54 UTC. Alert expected at frontend (Online Boutique entry point).,task_3,"The only predicted root cause component is emailservice
+The only predicted root cause reason is application error caused by wrong return value from a function, causing incorrect behaviour in downstream logic"
+Code fault injected into emailservice (fault type F5: wrong return value) at 2024-11-23 16:04:53 UTC. Alert expected at frontend (Online Boutique entry point).,task_3,"The only predicted root cause component is emailservice
+The only predicted root cause reason is application error caused by wrong return value from a function, causing incorrect behaviour in downstream logic"

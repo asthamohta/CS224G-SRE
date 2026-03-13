@@ -1,0 +1,23 @@
+scenario_id,task_index,difficulty,fault_type,title,prediction,score,passing,failing,error
+re3_cartservice_F1_001,task_3,easy,F1,[RE3-OB] cartservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 509, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 258, in _load_windowed_logs
+    df.groupby(svc_col, group_keys=False)
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/util/_decorators.py"", line 336, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/frame.py"", line 10817, in groupby
+    return DataFrameGroupBy(
+           ^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/groupby/groupby.py"", line 1095, in __init__
+    grouper, exclusions, obj = get_grouper(
+                               ^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/groupby/grouper.py"", line 896, in get_grouper
+    raise ValueError(f""Grouper for '{name}' not 1-dimensional"")
+ValueError: Grouper for 'time' not 1-dimensional
+"

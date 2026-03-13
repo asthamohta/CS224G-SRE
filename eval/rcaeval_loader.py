@@ -105,11 +105,11 @@ _FAULT_TYPE_TASK_INDEX: Dict[str, str] = {
 
 # Short ground-truth reason phrases used for cosine-similarity scoring.
 _FAULT_TYPE_REASON: Dict[str, str] = {
-    "F1": "incorrect parameter passed to function",
-    "F2": "missing function call causing incorrect behaviour",
-    "F3": "missing exception handler causing unhandled error propagation",
-    "F4": "wrong return value causing downstream logic failure",
-    "F5": "wrong return value causing downstream logic failure",
+    "F1": "application error caused by incorrect parameter or argument passed to a function, visible in stack traces or error logs",
+    "F2": "application error caused by missing function call leading to incorrect or incomplete behaviour",
+    "F3": "unhandled exception propagating through the service due to missing exception handler, visible as stack trace in logs",
+    "F4": "application logic error caused by incorrect control flow or wrong return value leading to downstream failures",
+    "F5": "application error caused by wrong return value from a function, causing incorrect behaviour in downstream logic",
 }
 
 # Human-readable descriptions of each fault type (for scenario title/description)

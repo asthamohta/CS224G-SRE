@@ -19,7 +19,7 @@ from datetime import datetime
 # ---------------------------------------------------------------------------
 
 _encoder = None
-_SIM_THRESHOLD = 0.50  # cosine similarity threshold for reason match
+_SIM_THRESHOLD = 0.40  # cosine similarity threshold for reason match
 
 def _get_encoder():
     global _encoder

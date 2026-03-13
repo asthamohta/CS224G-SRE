@@ -1,0 +1,3 @@
+instruction,task_index,scoring_points
+Code fault injected into cartservice (fault type F1: incorrect parameter) at 2024-11-18 05:43:12 UTC. Alert expected at frontend (Online Boutique entry point).,task_3,"The only predicted root cause component is cartservice
+The only predicted root cause reason is incorrect parameter passed to function"

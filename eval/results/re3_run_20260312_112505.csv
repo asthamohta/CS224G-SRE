@@ -1,0 +1,991 @@
+scenario_id,task_index,difficulty,fault_type,title,prediction,score,passing,failing,error
+re3_cartservice_F1_001,task_3,easy,F1,[RE3-OB] cartservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_cartservice_F1_002,task_3,easy,F1,[RE3-OB] cartservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_cartservice_F1_003,task_3,easy,F1,[RE3-OB] cartservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_currencyservice_F1_001,task_3,easy,F1,[RE3-OB] currencyservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_currencyservice_F1_002,task_3,easy,F1,[RE3-OB] currencyservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_currencyservice_F1_003,task_3,easy,F1,[RE3-OB] currencyservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F1_001,task_3,easy,F1,[RE3-OB] emailservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F1_002,task_3,easy,F1,[RE3-OB] emailservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F1_003,task_3,easy,F1,[RE3-OB] emailservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F2_001,task_6,medium,F2,[RE3-OB] emailservice — F2 (missing function call),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F2_002,task_6,medium,F2,[RE3-OB] emailservice — F2 (missing function call),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F2_003,task_6,medium,F2,[RE3-OB] emailservice — F2 (missing function call),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_adservice_F3_001,task_6,medium,F3,[RE3-OB] adservice — F3 (missing exception handler),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_adservice_F3_002,task_6,medium,F3,[RE3-OB] adservice — F3 (missing exception handler),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_adservice_F3_003,task_6,medium,F3,[RE3-OB] adservice — F3 (missing exception handler),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F3_001,task_6,medium,F3,[RE3-OB] emailservice — F3 (missing exception handler),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F3_002,task_6,medium,F3,[RE3-OB] emailservice — F3 (missing exception handler),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F3_003,task_6,medium,F3,[RE3-OB] emailservice — F3 (missing exception handler),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_adservice_F4_001,task_6,hard,F4,[RE3-OB] adservice — F4 (incorrect control flow),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_adservice_F4_002,task_6,hard,F4,[RE3-OB] adservice — F4 (incorrect control flow),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_adservice_F4_003,task_6,hard,F4,[RE3-OB] adservice — F4 (incorrect control flow),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F4_001,task_6,hard,F4,[RE3-OB] emailservice — F4 (incorrect control flow),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F4_002,task_6,hard,F4,[RE3-OB] emailservice — F4 (incorrect control flow),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F4_003,task_6,hard,F4,[RE3-OB] emailservice — F4 (incorrect control flow),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_adservice_F5_001,task_3,easy,F5,[RE3-OB] adservice — F5 (wrong return value),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_adservice_F5_002,task_3,easy,F5,[RE3-OB] adservice — F5 (wrong return value),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_adservice_F5_003,task_3,easy,F5,[RE3-OB] adservice — F5 (wrong return value),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F5_001,task_3,easy,F5,[RE3-OB] emailservice — F5 (wrong return value),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F5_002,task_3,easy,F5,[RE3-OB] emailservice — F5 (wrong return value),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"
+re3_emailservice_F5_003,task_3,easy,F5,[RE3-OB] emailservice — F5 (wrong return value),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/run_rcaeval_eval.py"", line 116, in run_re3_scenario
+    graph_builder = build_re3_graph(scenario, fetch_code=fetch_code)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 499, in build_re3_graph
+    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/asthamohta/Documents/CS224G-SRE/eval/../eval/rcaeval_graph_adapter.py"", line 230, in _load_windowed_logs
+    filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/series.py"", line 6735, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/array_ops.py"", line 341, in comparison_op
+    res_values = op(lvalues, rvalues)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/ops/common.py"", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arraylike.py"", line 62, in __ge__
+    return self._cmp_method(other, operator.ge)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/envs/cs224g-sre/lib/python3.11/site-packages/pandas/core/arrays/string_.py"", line 1220, in _cmp_method
+    result[valid] = op(self._ndarray[valid], other)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'float'
+"

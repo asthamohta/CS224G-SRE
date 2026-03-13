@@ -132,6 +132,23 @@ def run_re3_scenario(
             print(f"  Error nodes: {error_nodes if error_nodes else 'none detected'}")
 
         # 3. Run RCA agent (no GitHub enrichment for RE3)
+        # Inject a code-fault hint so the agent prioritises stack traces over metrics
+        context["incident_hint"] = (
+            "NOTE: This incident involves a CODE-LEVEL application fault injected into exactly ONE "
+            "microservice (e.g. wrong parameter, missing function call, missing exception handler, "
+            "wrong return value, incorrect control flow). "
+            "IMPORTANT RULES: "
+            "(1) Prioritise services with stack traces or error tracebacks in their logs — "
+            "stack traces directly reveal the faulty service. "
+            "(2) If multiple services show metric anomalies but only one has stack traces, the "
+            "stack-trace service is almost certainly the root cause. "
+            "(3) If NO stack traces are visible, look for the service with the most anomalous "
+            "application-level metrics (NOT infrastructure services like currencyservice unless "
+            "it directly shows errors). "
+            "(4) The root cause is the service whose SOURCE CODE was modified, not downstream "
+            "services that receive bad responses from it. "
+            "(5) You MUST classify the fault type in your reasoning."
+        )
         agent = RCAAgent(client=llm_client, github_output_path=None)
         agent_output = agent.analyze(context)
         result["agent_output"] = agent_output

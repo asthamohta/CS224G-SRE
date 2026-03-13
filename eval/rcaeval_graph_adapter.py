@@ -111,6 +111,12 @@ _ERROR_KEYWORDS: Set[str] = {
     "segfault", "abort", "crash",
 }
 
+# Baseline noise patterns present in RE3-OB dataset regardless of fault injection.
+# Suppressing these prevents the agent from being misled by dataset-wide noise.
+_NOISE_PATTERNS: List[str] = [
+    "unacceptedcreditcard",   # paymentservice business-logic error present in all cases
+]
+
 # Stack-trace indicator patterns
 _STACKTRACE_PATTERNS: List[str] = [
     r"Traceback \(most recent call last\)",   # Python
@@ -193,6 +199,8 @@ def _load_windowed_wide_metrics(
     ):
         if "time" not in chunk.columns:
             break
+        chunk["time"] = pd.to_numeric(chunk["time"], errors="coerce")
+        chunk = chunk.dropna(subset=["time"])
         filtered = chunk[(chunk["time"] >= start_ts) & (chunk["time"] <= end_ts)]
         if not filtered.empty:
             chunks.append(filtered)
@@ -221,16 +229,26 @@ def _load_windowed_logs(
         path, chunksize=chunk_size, low_memory=False,
         encoding="utf-8", encoding_errors="replace",
     ):
-        # Detect time column name (may be "time" or "timestamp")
-        time_col = "time" if "time" in chunk.columns else (
-            "timestamp" if "timestamp" in chunk.columns else None
-        )
-        if time_col is None:
+        # Detect time column: prefer "timestamp" (nanoseconds) over "time" (may be HH:MM string)
+        if "timestamp" in chunk.columns:
+            time_col = "timestamp"
+            chunk[time_col] = pd.to_numeric(chunk[time_col], errors="coerce")
+            # Convert nanoseconds → seconds if values are clearly in ns range (> 1e12)
+            sample = chunk[time_col].dropna()
+            if not sample.empty and sample.iloc[0] > 1e12:
+                chunk[time_col] = chunk[time_col] / 1e9
+        elif "time" in chunk.columns:
+            time_col = "time"
+            chunk[time_col] = pd.to_numeric(chunk[time_col], errors="coerce")
+        else:
             break
+        chunk = chunk.dropna(subset=[time_col])
         filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
         if not filtered.empty:
             # Normalise time column name
             if time_col != "time":
+                if "time" in filtered.columns:
+                    filtered = filtered.drop(columns=["time"])
                 filtered = filtered.rename(columns={time_col: "time"})
             chunks.append(filtered)
 
@@ -240,13 +258,16 @@ def _load_windowed_logs(
     df = pd.concat(chunks, ignore_index=True)
 
     # Cap per-service rows
-    svc_col = "service_name" if "service_name" in df.columns else (
-        df.columns[1] if len(df.columns) >= 2 else None
+    svc_col = next(
+        (c for c in ("service_name", "container_name", "service") if c in df.columns),
+        df.columns[1] if len(df.columns) >= 2 else None,
     )
     if svc_col:
+        # Use tail() to favour post-injection rows (latest in window) where
+        # stack traces and error signals concentrate.
         df = (
             df.groupby(svc_col, group_keys=False)
-              .head(per_service_cap)
+              .tail(per_service_cap)
               .reset_index(drop=True)
         )
 
@@ -401,9 +422,14 @@ def build_re3_graph(
 
     start_ts    = load_start.timestamp()
     end_ts      = load_end.timestamp()
+    inject_ts   = inject_time.timestamp()
     # Baseline: 15–30 min before inject (normal behaviour window)
-    baseline_start_ts = (inject_time.timestamp()) - 30 * 60
-    baseline_end_ts   = (inject_time.timestamp()) - 15 * 60
+    baseline_start_ts = inject_ts - 30 * 60
+    baseline_end_ts   = inject_ts - 15 * 60
+    # Log window: 2 min before inject to 15 min after — captures fault signals
+    # without drowning them in pre-injection normal traffic.
+    log_start_ts = inject_ts - 2 * 60
+    log_end_ts   = inject_ts + 15 * 60
 
     # 1. Wire topology
     for svc in top["services"]:
@@ -453,7 +479,7 @@ def build_re3_graph(
 
                 z = z_scores.get(svc, {}).get(kpi, 0.0)
                 threshold_hit = _exceeds_threshold(kpi, peak_val)
-                z_hit = z > 2.0
+                z_hit = z > 3.0
 
                 anomalous = threshold_hit or z_hit
                 if anomalous:
@@ -495,19 +521,20 @@ def build_re3_graph(
             if is_error:
                 nx.set_node_attributes(gb.graph, {svc: {"status": "error"}})
 
-    # 5. Load logs
-    logs_df = _load_windowed_logs(case_dir, start_ts, end_ts)
+    # 5. Load logs — use tight window around injection to capture fault signals
+    # without being overwhelmed by pre-injection normal traffic.
+    logs_df = _load_windowed_logs(case_dir, log_start_ts, log_end_ts)
 
     # 6. Attach log events per service
     if not logs_df.empty:
-        # Detect service column name
-        svc_col = "service_name" if "service_name" in logs_df.columns else (
-            logs_df.columns[1] if len(logs_df.columns) >= 3 else None
+        # Detect service column name — prefer explicit names, then position
+        svc_col = next(
+            (c for c in ("service_name", "container_name", "service") if c in logs_df.columns),
+            logs_df.columns[1] if len(logs_df.columns) >= 3 else None,
         )
-        msg_col = "log_message" if "log_message" in logs_df.columns else (
-            "message" if "message" in logs_df.columns else (
-                logs_df.columns[2] if len(logs_df.columns) >= 3 else None
-            )
+        msg_col = next(
+            (c for c in ("log_message", "message", "msg") if c in logs_df.columns),
+            logs_df.columns[2] if len(logs_df.columns) >= 3 else None,
         )
         time_col = "time" if "time" in logs_df.columns else "timestamp"
 
@@ -523,6 +550,9 @@ def build_re3_graph(
 
                 for _, row in svc_logs.iterrows():
                     msg = str(row.get(msg_col, ""))
+                    # Skip known baseline noise present across all RE3-OB cases
+                    if any(p in msg.lower() for p in _NOISE_PATTERNS):
+                        continue
                     try:
                         ts_str = _ts_to_str(float(row[time_col]))
                     except Exception:

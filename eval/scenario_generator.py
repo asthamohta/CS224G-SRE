@@ -9,6 +9,7 @@ Given a scenario definition, produces:
 The generator encodes the fault cleanly in the telemetry so that
 RootScout's ingestion + RCA pipeline has everything it needs.
 """
+from __future__ import annotations
 
 import time
 from datetime import timezone
