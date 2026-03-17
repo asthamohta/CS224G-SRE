@@ -47,7 +47,9 @@ def _networkx():
 
 # ---------------------------------------------------------------------------
 # Known Online Boutique service names
-# Sorted longest-first to avoid short-prefix false matches during column melt
+# Sorted longest-first to avoid short-prefix false matches during column melt.
+# NOTE: In RE3-OB data files, Redis is named "redis" (not "redis-cart").
+#       _SVC_NORM maps data-file names → canonical topology names.
 # ---------------------------------------------------------------------------
 
 _OB_SERVICES: List[str] = sorted(
@@ -63,11 +65,19 @@ _OB_SERVICES: List[str] = sorted(
         "recommendationservice",
         "shippingservice",
         "redis-cart",
+        "redis",           # RE3-OB data uses "redis" not "redis-cart"
         "loadgenerator",
+        "frontend-external",  # appears in simple_metrics.csv workload/error cols
     ],
     key=len,
     reverse=True,
 )
+
+# Map data-file service names → canonical topology node names
+_SVC_NORM: dict = {
+    "redis":            "redis-cart",
+    "frontend-external": "frontend",   # treat as frontend traffic source
+}
 
 # ---------------------------------------------------------------------------
 # KPI anomaly thresholds (static fallback when baseline is unavailable)
@@ -120,7 +130,7 @@ _NOISE_PATTERNS: List[str] = [
 # Stack-trace indicator patterns
 _STACKTRACE_PATTERNS: List[str] = [
     r"Traceback \(most recent call last\)",   # Python
-    r"\tat ",                                  # Java stack frame
+    r"\tat ",                                  # Java stack frame (tab-prefixed)
     r"Exception in thread",                   # Java uncaught exception
     r'File ".*", line \d+',                   # Python file/line
     r"goroutine \d+ \[",                      # Go panic
@@ -128,9 +138,13 @@ _STACKTRACE_PATTERNS: List[str] = [
     r"at .*\.(java|go|py|rb):\d+",           # generic file:line
     r"caused by:",                            # Java chained exception
     r"\.\.\.(\d+ more)",                      # Java truncated trace
+    r"\.cs:line \d+",                         # C# / .NET file:line
+    r"\w+Exception[:\s]",                     # Any *Exception: (Java/C#/Python)
+    r"System\.\w+Exception",                  # .NET system exceptions
+    r"^\s+at \w[\w$.]+\(",                    # C# / .NET stack frame (space-prefixed)
 ]
 _STACKTRACE_RE = re.compile(
-    "|".join(_STACKTRACE_PATTERNS), re.IGNORECASE
+    "|".join(_STACKTRACE_PATTERNS), re.IGNORECASE | re.MULTILINE
 )
 
 
@@ -184,12 +198,18 @@ def _load_windowed_wide_metrics(
     chunk_size: int = 50_000,
 ) -> pd.DataFrame:
     """
-    Read data.csv in chunks, keep rows in [start_ts, end_ts].
+    Read metrics CSV in chunks, keep rows in [start_ts, end_ts].
     Returns the raw wide-format DataFrame (columns: time, svc_kpi, ...).
     The `time` column holds Unix timestamps (UTC).
+    Prefers simple_metrics.csv (clean KPI names); falls back to metrics.csv.
     """
-    path = os.path.join(case_dir, "data.csv")
-    if not os.path.exists(path):
+    # RE3-OB uses simple_metrics.csv (clean names like adservice_cpu);
+    # fall back to metrics.csv if not present
+    for fname in ("simple_metrics.csv", "metrics.csv", "data.csv"):
+        path = os.path.join(case_dir, fname)
+        if os.path.exists(path):
+            break
+    else:
         return pd.DataFrame()
 
     chunks = []
@@ -218,7 +238,13 @@ def _load_windowed_logs(
     """
     Read logs.csv in chunks, keep rows in [start_ts, end_ts].
     Caps per-service rows to keep memory bounded.
-    Expected columns: [time, service_name, log_message]
+
+    Supports two schemas:
+      Legacy:  [time, service_name, log_message]        (Unix seconds)
+      RE3-OB:  [time, timestamp, container_name, message, pod_name, node_name]
+               where `timestamp` is nanoseconds and `container_name` is service.
+
+    Output always has normalised columns: [time, service_name, log_message].
     """
     path = os.path.join(case_dir, "logs.csv")
     if not os.path.exists(path):
@@ -229,44 +255,63 @@ def _load_windowed_logs(
         path, chunksize=chunk_size, low_memory=False,
         encoding="utf-8", encoding_errors="replace",
     ):
-        # Detect time column: prefer "timestamp" (nanoseconds) over "time" (may be HH:MM string)
+        # --- Detect and normalise timestamp column ---
         if "timestamp" in chunk.columns:
-            time_col = "timestamp"
-            chunk[time_col] = pd.to_numeric(chunk[time_col], errors="coerce")
-            # Convert nanoseconds → seconds if values are clearly in ns range (> 1e12)
-            sample = chunk[time_col].dropna()
-            if not sample.empty and sample.iloc[0] > 1e12:
-                chunk[time_col] = chunk[time_col] / 1e9
+            # RE3-OB: nanosecond timestamps → convert to Unix seconds
+            ts_unix = pd.to_numeric(chunk["timestamp"], errors="coerce") / 1e9
+            chunk = chunk.copy()
+            chunk["_ts_unix"] = ts_unix
+            time_col = "_ts_unix"
         elif "time" in chunk.columns:
-            time_col = "time"
-            chunk[time_col] = pd.to_numeric(chunk[time_col], errors="coerce")
+            chunk = chunk.copy()
+            chunk["_ts_unix"] = pd.to_numeric(chunk["time"], errors="coerce")
+            time_col = "_ts_unix"
         else:
             break
-        chunk = chunk.dropna(subset=[time_col])
-        filtered = chunk[(chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)]
-        if not filtered.empty:
-            # Normalise time column name
-            if time_col != "time":
-                if "time" in filtered.columns:
-                    filtered = filtered.drop(columns=["time"])
-                filtered = filtered.rename(columns={time_col: "time"})
-            chunks.append(filtered)
+
+        filtered = chunk[
+            (chunk[time_col] >= start_ts) & (chunk[time_col] <= end_ts)
+        ].copy()
+        if filtered.empty:
+            continue
+
+        # --- Normalise service / message column names ---
+        if "container_name" in filtered.columns:
+            # RE3-OB schema
+            filtered = filtered.rename(columns={
+                "container_name": "service_name",
+                "message":        "log_message",
+            })
+            # Apply service name normalisation (redis → redis-cart)
+            filtered["service_name"] = filtered["service_name"].map(
+                lambda s: _SVC_NORM.get(str(s), str(s))
+            )
+        elif "service_name" not in filtered.columns:
+            # Guess: second column is service, third is message
+            cols = filtered.columns.tolist()
+            if len(cols) >= 3:
+                filtered = filtered.rename(columns={
+                    cols[1]: "service_name", cols[2]: "log_message"
+                })
+
+        # Unify time column
+        filtered["time"] = filtered["_ts_unix"]
+        chunks.append(filtered)
 
     if not chunks:
         return pd.DataFrame()
 
     df = pd.concat(chunks, ignore_index=True)
 
-    # Cap per-service rows
-    svc_col = next(
-        (c for c in ("service_name", "container_name", "service") if c in df.columns),
-        df.columns[1] if len(df.columns) >= 2 else None,
-    )
-    if svc_col:
-        # Use tail() to favour post-injection rows (latest in window) where
-        # stack traces and error signals concentrate.
+    # Sort by time so the cap keeps rows closest to the inject point.
+    # Without sorting, the first N rows could all be baseline (pre-inject).
+    if "time" in df.columns:
+        df = df.sort_values("time").reset_index(drop=True)
+
+    # Cap per-service rows — take the LAST N rows (closest to / after inject time)
+    if "service_name" in df.columns:
         df = (
-            df.groupby(svc_col, group_keys=False)
+            df.groupby("service_name", group_keys=False)
               .tail(per_service_cap)
               .reset_index(drop=True)
         )
@@ -325,7 +370,7 @@ def _melt_wide_metrics(df: pd.DataFrame) -> pd.DataFrame:
         id_vars=["time"], value_vars=metric_cols,
         var_name="svc_kpi", value_name="value",
     )
-    long["service"] = long["svc_kpi"].map(lambda c: col_map[c][0])
+    long["service"] = long["svc_kpi"].map(lambda c: _SVC_NORM.get(col_map[c][0], col_map[c][0]))
     long["kpi"]     = long["svc_kpi"].map(lambda c: col_map[c][1])
     long = long[["time", "service", "kpi", "value"]].dropna(subset=["value"])
     long["value"] = pd.to_numeric(long["value"], errors="coerce")

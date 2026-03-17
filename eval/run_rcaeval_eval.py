@@ -305,8 +305,8 @@ def main() -> None:
         description="RootScout evaluation on RE3-OB (RCAEval code-level faults)"
     )
     parser.add_argument(
-        "--data-dir", default="data/RE3-OB",
-        help="Path to the RE3-OB directory (default: data/RE3-OB)",
+        "--data-dir", default="data/RE3/RE3-OB",
+        help="Path to the RE3-OB directory (default: data/RE3/RE3-OB)",
     )
     parser.add_argument(
         "--n", type=int, default=None,

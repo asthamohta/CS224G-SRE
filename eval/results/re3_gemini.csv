@@ -1,0 +1,1501 @@
+scenario_id,task_index,difficulty,fault_type,title,prediction,score,passing,failing,error
+re3_cartservice_F1_001,task_3,easy,F1,[RE3-OB] cartservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_cartservice_F1_002,task_3,easy,F1,[RE3-OB] cartservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_cartservice_F1_003,task_3,easy,F1,[RE3-OB] cartservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_currencyservice_F1_001,task_3,easy,F1,[RE3-OB] currencyservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_currencyservice_F1_002,task_3,easy,F1,[RE3-OB] currencyservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_currencyservice_F1_003,task_3,easy,F1,[RE3-OB] currencyservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F1_001,task_3,easy,F1,[RE3-OB] emailservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F1_002,task_3,easy,F1,[RE3-OB] emailservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F1_003,task_3,easy,F1,[RE3-OB] emailservice — F1 (incorrect parameter),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F2_001,task_6,medium,F2,[RE3-OB] emailservice — F2 (missing function call),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F2_002,task_6,medium,F2,[RE3-OB] emailservice — F2 (missing function call),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F2_003,task_6,medium,F2,[RE3-OB] emailservice — F2 (missing function call),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_adservice_F3_001,task_6,medium,F3,[RE3-OB] adservice — F3 (missing exception handler),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_adservice_F3_002,task_6,medium,F3,[RE3-OB] adservice — F3 (missing exception handler),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_adservice_F3_003,task_6,medium,F3,[RE3-OB] adservice — F3 (missing exception handler),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F3_001,task_6,medium,F3,[RE3-OB] emailservice — F3 (missing exception handler),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F3_002,task_6,medium,F3,[RE3-OB] emailservice — F3 (missing exception handler),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F3_003,task_6,medium,F3,[RE3-OB] emailservice — F3 (missing exception handler),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_adservice_F4_001,task_6,hard,F4,[RE3-OB] adservice — F4 (incorrect control flow),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_adservice_F4_002,task_6,hard,F4,[RE3-OB] adservice — F4 (incorrect control flow),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_adservice_F4_003,task_6,hard,F4,[RE3-OB] adservice — F4 (incorrect control flow),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F4_001,task_6,hard,F4,[RE3-OB] emailservice — F4 (incorrect control flow),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F4_002,task_6,hard,F4,[RE3-OB] emailservice — F4 (incorrect control flow),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F4_003,task_6,hard,F4,[RE3-OB] emailservice — F4 (incorrect control flow),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_adservice_F5_001,task_3,easy,F5,[RE3-OB] adservice — F5 (wrong return value),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_adservice_F5_002,task_3,easy,F5,[RE3-OB] adservice — F5 (wrong return value),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_adservice_F5_003,task_3,easy,F5,[RE3-OB] adservice — F5 (wrong return value),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F5_001,task_3,easy,F5,[RE3-OB] emailservice — F5 (wrong return value),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F5_002,task_3,easy,F5,[RE3-OB] emailservice — F5 (wrong return value),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
+re3_emailservice_F5_003,task_3,easy,F5,[RE3-OB] emailservice — F5 (wrong return value),,0.0,[],[],"Traceback (most recent call last):
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/run_rcaeval_eval.py"", line 136, in run_re3_scenario
+    agent_output = agent.analyze(context)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../graph/agent.py"", line 38, in analyze
+    response_str = self.client.generate_content(prompt)
+  File ""/Users/meghna/Desktop/AppsWithLLMs/CS224G-SRE/eval/../eval/../llm_integration/client.py"", line 63, in generate_content
+    response = self.client.models.generate_content(
+        model=self.model_id,
+        contents=prompt,
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 5227, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/models.py"", line 4009, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1386, in request
+    response = self._request(http_request, http_options, stream=False)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1222, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 475, in __call__
+    do = self.iter(retry_state=retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 376, in iter
+    result = action(retry_state)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 418, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 185, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File ""/opt/anaconda3/lib/python3.13/concurrent/futures/_base.py"", line 401, in __get_result
+    raise self._exception
+  File ""/opt/anaconda3/lib/python3.13/site-packages/tenacity/__init__.py"", line 478, in __call__
+    result = fn(*args, **kwargs)
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/_api_client.py"", line 1199, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 121, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/anaconda3/lib/python3.13/site-packages/google/genai/errors.py"", line 146, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}
+"
