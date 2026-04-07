@@ -13,10 +13,10 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, Request, BackgroundTasks, Header, HTTPException, Response
 
 # GitHub ingestion
-from RootScout.github_ingester import FileAppendSink, IngestConfig, GitHubIngester, PrintSink as GitHubPrintSink
+from rootscout.github_ingester import FileAppendSink, IngestConfig, GitHubIngester, PrintSink as GitHubPrintSink
 
 # OTel ingestion (you created this in otel_ingester.py)
-from RootScout.otel_ingester import OTelIngester, PrintSink as OTelPrintSink
+from rootscout.otel_ingester import OTelIngester, PrintSink as OTelPrintSink
 
 # OTLP protobuf messages (from opentelemetry-proto)
 from opentelemetry.proto.collector.trace.v1.trace_service_pb2 import (
@@ -125,8 +125,8 @@ def create_app() -> FastAPI:
 
     if enable_graph_builder:
         print("[config] ENABLE_GRAPH_BUILDER=true; constructing real-time service graph")
-        from graph.graph_builder import GraphBuilder
-        from RootScout.graph_sink import GraphBuilderSink, ComposedSink
+        from rootscout.graph.graph_builder import GraphBuilder
+        from rootscout.graph_sink import GraphBuilderSink, ComposedSink
 
         graph_builder = GraphBuilder()
         graph_sink = GraphBuilderSink(graph_builder)
@@ -137,7 +137,7 @@ def create_app() -> FastAPI:
         graph_builder = None
 
     # Slack integration
-    from RootScout.slack_connector import (
+    from rootscout.slack_connector import (
         slack_config_from_env,
         SlackNotifier,
         SlackAlertSink,
@@ -153,8 +153,8 @@ def create_app() -> FastAPI:
         slack_notifier = SlackNotifier(slack_cfg)
         # wrap the otel_sink so ERROR signals also fire Slack alerts
         otel_sink = SlackAlertSink(notifier=slack_notifier, inner_sink=otel_sink)
-        from llm_integration.client import ClaudeClient, MockClient
-        from graph.agent import RCAAgent
+        from rootscout.llm.client import ClaudeClient, MockClient
+        from rootscout.graph.agent import RCAAgent
         import os as _os
         _anthropic_key = _os.getenv("ANTHROPIC_API_KEY", "").strip()
         if _anthropic_key:
@@ -361,8 +361,8 @@ def create_app() -> FastAPI:
             )
 
         async def _run():
-            from graph.context_retriever import ContextRetriever
-            from graph.agent import RCAAgent
+            from rootscout.graph.context_retriever import ContextRetriever
+            from rootscout.graph.agent import RCAAgent
 
             context_packet = ContextRetriever(app.state.graph_builder).get_context(
                 service_name

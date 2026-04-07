@@ -3,14 +3,9 @@ graph_sink.py
 Connects OTel ingestion to the graph builder for real-time graph construction.
 """
 
-import sys
-import os
 from typing import Any, Dict
 
-# Add parent directory to path for imports
-sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-
-from RootScout.otel_ingester import TelemetrySink
+from rootscout.otel_ingester import TelemetrySink
 
 
 class GraphBuilderSink(TelemetrySink):
@@ -26,6 +21,7 @@ class GraphBuilderSink(TelemetrySink):
         """
         self.graph_builder = graph_builder
         self._service_health = {}  # Track service health from metrics/logs
+        self._span_service = {}    # span_id -> service_name (for parent lookup)
 
     def emit(self, record: Dict[str, Any]) -> None:
         """
@@ -69,6 +65,11 @@ class GraphBuilderSink(TelemetrySink):
         if not service_name:
             return
 
+        # Track span_id → service for parent lookups
+        span_id = record.get("span_id")
+        if span_id:
+            self._span_service[span_id] = service_name
+
         # Calculate latency
         start_nano = record.get("start_time_unix_nano", 0)
         end_nano = record.get("end_time_unix_nano", 0)
@@ -78,10 +79,20 @@ class GraphBuilderSink(TelemetrySink):
         status_code = record.get("status_code", 0)
         status = "ERROR" if status_code == 2 else "OK"
 
-        # Extract parent service from attributes
-        # In real OTel, you might use span links, parent context, or conventions
-        span_attrs = record.get("span_attributes", {})
-        parent_service = self._extract_parent_service(record, span_attrs)
+        # Resolve parent service: first try parent_span_id correlation,
+        # then fall back to attribute-based extraction
+        parent_service = None
+        parent_span_id = record.get("parent_span_id")
+        if parent_span_id and parent_span_id in self._span_service:
+            parent_svc = self._span_service[parent_span_id]
+            if parent_svc != service_name:
+                parent_service = parent_svc
+
+        if parent_service is None:
+            span_attrs = record.get("span_attributes", {})
+            candidate = self._extract_parent_service(record, span_attrs)
+            if candidate and candidate != service_name:
+                parent_service = candidate
 
         # Build simplified span data
         span_data = {
@@ -91,7 +102,7 @@ class GraphBuilderSink(TelemetrySink):
             "latency_ms": latency_ms,
             "span_name": record.get("name"),
             "trace_id": record.get("trace_id"),
-            "span_id": record.get("span_id"),
+            "span_id": span_id,
         }
 
         # Ingest into graph
@@ -118,14 +129,22 @@ class GraphBuilderSink(TelemetrySink):
             if parts:
                 return parts[0]
 
-        # Check for RPC service
+        # Check for RPC service (e.g. "hipstershop.CheckoutService" -> "CheckoutService")
         if "rpc.service" in span_attrs:
-            return span_attrs["rpc.service"]
+            rpc_svc = span_attrs["rpc.service"]
+            # Take last dotted component and lowercase it
+            short = rpc_svc.rsplit(".", 1)[-1]
+            return short.lower() if short[0].isupper() else rpc_svc
+
+        # Infer from gRPC span name (e.g. "grpc.hipstershop.CartService/GetCart")
+        span_name = record.get("name", "")
+        if span_name.startswith("grpc.") and "/" in span_name:
+            svc_part = span_name.split("/")[0]  # "grpc.hipstershop.CartService"
+            short = svc_part.rsplit(".", 1)[-1]  # "CartService"
+            return short.lower() if short[0].isupper() else short
 
         # Infer from span name (e.g., "GET /auth/...")
-        span_name = record.get("name", "")
         if "/" in span_name:
-            # Extract first path segment as potential service
             parts = span_name.split("/")
             for part in parts:
                 if part and not part.startswith("api") and not part.startswith("v"):

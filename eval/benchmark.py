@@ -14,7 +14,6 @@ Usage (via run_eval.py or directly):
     python -m eval.benchmark --scenarios all --output eval/results/run.csv
 """
 
-import sys
 import os
 import json
 import time
@@ -22,17 +21,14 @@ import traceback
 from datetime import datetime
 from typing import Dict, Any, List, Optional, Tuple
 
-# Ensure project root is on the path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
 import networkx as nx
 
-from graph.graph_builder import GraphBuilder
-from graph.context_retriever import ContextRetriever
-from graph.agent import RCAAgent
-from RootScout.otel_ingester import OTelIngester
-from RootScout.graph_sink import GraphBuilderSink
-from llm_integration.client import GeminiClient, MockClient
+from rootscout.graph.graph_builder import GraphBuilder
+from rootscout.graph.context_retriever import ContextRetriever
+from rootscout.graph.agent import RCAAgent
+from rootscout.otel_ingester import OTelIngester
+from rootscout.graph_sink import GraphBuilderSink
+from rootscout.llm.client import GeminiClient, MockClient
 
 from eval.scenario_generator import generate_otlp
 from eval.evaluate import evaluate as openrca_evaluate

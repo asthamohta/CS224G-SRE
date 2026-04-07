@@ -1,14 +1,10 @@
 import json
 import os
-import sys
 
-# Ensure imports work from the root directory
-sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-
-from graph_builder import GraphBuilder
-from context_retriever import ContextRetriever
-from agent import RCAAgent
-from llm_integration.client import GeminiClient, MockClient
+from rootscout.graph.graph_builder import GraphBuilder
+from rootscout.graph.context_retriever import ContextRetriever
+from rootscout.graph.agent import RCAAgent
+from rootscout.llm.client import GeminiClient, MockClient
 
 # 1. Initialize Engine
 engine = GraphBuilder()

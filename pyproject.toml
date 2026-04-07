@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rootscout"
+version = "0.2.0"
+description = "Autonomous SRE root-cause analysis from OTel telemetry and code"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "python-dotenv>=1.0",
+    "networkx>=3.0",
+    "opentelemetry-proto",
+    "protobuf>=4.0",
+    "httpx>=0.28,<1.0",
+]
+
+[project.optional-dependencies]
+gemini = ["google-genai>=1.0"]
+claude = ["anthropic>=0.80"]
+openai = ["openai>=1.0"]
+server = ["fastapi>=0.115", "uvicorn[standard]>=0.30"]
+all = ["rootscout[gemini,claude,openai,server]"]
+
+[project.scripts]
+rootscout = "rootscout.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["rootscout*"]

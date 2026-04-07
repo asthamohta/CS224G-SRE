@@ -10,8 +10,6 @@ and invokes a Claude-based SRE agent to produce a structured RCA report.
 from __future__ import annotations
 
 import os
-import sys
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import json
 import re
 import time
@@ -20,8 +18,8 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import requests
 
-from RootScout.otel_ingester import OTelIngester, TelemetrySink
-from RootScout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
+from rootscout.otel_ingester import OTelIngester, TelemetrySink
+from rootscout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
 
 
 

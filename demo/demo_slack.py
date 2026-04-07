@@ -8,12 +8,9 @@ Runs the full RootScout pipeline with real Slack output:
   - Posts the structured RCA report to Slack
 """
 
-import sys
 import os
 import time
 import json
-
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -90,10 +87,10 @@ def main():
     # initialize pipeline components 
     step(1, "Initialize pipeline")
 
-    from RootScout.otel_ingester import OTelIngester
-    from RootScout.graph_sink import GraphBuilderSink
-    from graph.graph_builder import GraphBuilder
-    from graph.context_retriever import ContextRetriever
+    from rootscout.otel_ingester import OTelIngester
+    from rootscout.graph_sink import GraphBuilderSink
+    from rootscout.graph.graph_builder import GraphBuilder
+    from rootscout.graph.context_retriever import ContextRetriever
 
     graph_builder = GraphBuilder()
     ok("GraphBuilder initialized")
@@ -102,7 +99,7 @@ def main():
         notifier = DryRunNotifier()
         notifier._config = type("C", (), {"alert_cooldown_seconds": 0})()
     else:
-        from RootScout.slack_connector import SlackConfig, SlackNotifier
+        from rootscout.slack_connector import SlackConfig, SlackNotifier
         slack_cfg = SlackConfig(
             bot_token=slack_token,
             signing_secret=os.getenv("SLACK_SIGNING_SECRET", ""),
@@ -113,7 +110,7 @@ def main():
         notifier = SlackNotifier(slack_cfg)
     ok("SlackNotifier ready")
 
-    from RootScout.slack_connector import SlackAlertSink
+    from rootscout.slack_connector import SlackAlertSink
     graph_sink  = GraphBuilderSink(graph_builder)
     otel_sink   = SlackAlertSink(notifier=notifier, inner_sink=graph_sink)
     otel_ingester = OTelIngester(sink=otel_sink)
@@ -125,7 +122,7 @@ def main():
     step(2, "Ingest OTLP telemetry")
     info("cart-service: database query timeout after 5000 ms")
 
-    from RootScout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
+    from rootscout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
     traces  = create_test_traces()
     metrics = create_test_metrics()
     logs    = create_test_logs()
@@ -197,8 +194,8 @@ def main():
     step(5, "Root cause analysis")
     info("Extracting context from dependency graph...")
 
-    from graph.agent import RCAAgent
-    from llm_integration.client import MockClient, ClaudeClient
+    from rootscout.graph.agent import RCAAgent
+    from rootscout.llm.client import MockClient, ClaudeClient
 
     context = ContextRetriever(graph_builder).get_context("cart-service")
     ok(f"Context packet: {len(context.get('related_nodes', []))} related services")

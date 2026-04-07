@@ -34,7 +34,7 @@ def _networkx():
     return _nx
 
 
-from graph.graph_builder import GraphBuilder
+from rootscout.graph.graph_builder import GraphBuilder
 
 
 # ---------------------------------------------------------------------------

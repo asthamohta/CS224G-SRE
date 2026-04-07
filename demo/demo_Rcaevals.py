@@ -27,8 +27,6 @@ import os
 import sys
 import time
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -160,7 +158,7 @@ def main():
     if dry_run:
         notifier = DryRunNotifier()
     else:
-        from RootScout.slack_connector import SlackConfig, SlackNotifier
+        from rootscout.slack_connector import SlackConfig, SlackNotifier
         cfg = SlackConfig(
             bot_token=slack_token,
             signing_secret=os.getenv("SLACK_SIGNING_SECRET", ""),
@@ -270,9 +268,9 @@ def main():
     step(4, "RCA agent analysis")
     info("Running BFS context retrieval from 'frontend'...")
 
-    from graph.context_retriever import ContextRetriever
-    from graph.agent import RCAAgent
-    from llm_integration.client import MockClient
+    from rootscout.graph.context_retriever import ContextRetriever
+    from rootscout.graph.agent import RCAAgent
+    from rootscout.llm.client import MockClient
 
     observed_svc = scenario["observed_service"]   # "frontend"
     if observed_svc not in g:
@@ -288,7 +286,7 @@ def main():
 
     if anthropic_key:
         try:
-            from llm_integration.client import ClaudeClient
+            from rootscout.llm.client import ClaudeClient
             llm = ClaudeClient()
             ok("LLM: Claude (claude-sonnet-4-6)")
         except Exception as exc:
@@ -296,7 +294,7 @@ def main():
             llm = MockClient()
     elif gemini_key:
         try:
-            from llm_integration.client import GeminiClient
+            from rootscout.llm.client import GeminiClient
             llm = GeminiClient()
             ok("LLM: Gemini 2.5 Flash")
         except Exception as exc:

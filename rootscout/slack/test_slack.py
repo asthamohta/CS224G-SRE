@@ -12,10 +12,7 @@ Or test with a specific webhook URL:
 import sys
 import os
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from slack_integration.client import SlackNotifier
+from rootscout.slack.client import SlackNotifier
 
 
 def test_basic_connection(webhook_url=None):

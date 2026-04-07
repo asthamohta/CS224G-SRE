@@ -30,7 +30,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 
 import pandas as pd
 
-from graph.graph_builder import GraphBuilder
+from rootscout.graph.graph_builder import GraphBuilder
 from eval.rcaeval_code_fetcher import enrich_with_code_snippets
 
 # Lazy import to avoid circular dependency

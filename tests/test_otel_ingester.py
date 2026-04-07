@@ -11,10 +11,8 @@ Run: python test_otel_ingester.py
 import sys
 import os
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from RootScout.otel_ingester import OTelIngester, TelemetrySink
-from RootScout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
+from rootscout.otel_ingester import OTelIngester, TelemetrySink
+from rootscout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
 from typing import Any, Dict, List
 
 
