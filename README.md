@@ -19,6 +19,7 @@ git clone https://github.com/asthamohta/CS224G-SRE.git
 cd CS224G-SRE
 pip install -r requirements.txt
 pip install -r requirements_eval.txt
+pip install -e .        # installs the `rootscout` CLI
 ```
 
 ## Configure
@@ -26,6 +27,107 @@ pip install -r requirements_eval.txt
 ```bash
 cp .env.example .env
 # Set GEMINI_API_KEY and/or ANTHROPIC_API_KEY in .env
+```
+
+---
+
+## Run — analyze a real incident
+
+Once installed, use the `rootscout analyze` CLI. You need three things:
+**(1) telemetry**, **(2) the failing service + incident time**, and
+**(3) the codebase(s)** that back those services.
+
+### Argument reference
+
+| Flag | Required | What to pass |
+|---|---|---|
+| `--telemetry` | yes | One or more OTel export files (`.pb` protobuf or `.json`) **or** directories containing them. Pass the raw OTLP traces / metrics / logs exported from your collector. Multiple paths allowed. |
+| `--incident-time` | yes | ISO 8601 timestamp of the incident, e.g. `2026-04-15T18:30:00Z`. |
+| `--failing-service` | yes | Name of the alerting service (must match a `service.name` that appears in the telemetry). |
+| `--codebases` | no | One or more **local directory paths** *or* **GitHub URLs** (e.g. `https://github.com/org/repo`) to index for code-level context. Multiple paths/URLs can be passed. |
+| `--window-hours` | no | Hours of telemetry to look back from `--incident-time` (default: 10). |
+| `--provider` | no | `claude` (default), `gemini`, `openai`, or `mock`. |
+| `--model` | no | Specific model override, e.g. `claude-opus-4-6`. |
+| `--github-events` | no | Path to a GitHub events JSONL file for recent-change context. |
+| `--slack-channel` | no | Slack channel to post the report to (needs `SLACK_BOT_TOKEN`). |
+| `--output`, `-o` | no | Path to write the full JSON RCA report. |
+
+### End-to-end example (Online Boutique)
+
+This example uses the cascading-failure scenario baked into
+`rootscout.demo_otel_data` (cartservice timeout bringing down checkout) and
+the public [Online Boutique](https://github.com/GoogleCloudPlatform/microservices-demo)
+repo as the codebase.
+
+**Step 1 — clone a codebase to point `--codebases` at:**
+
+```bash
+git clone --depth 1 https://github.com/GoogleCloudPlatform/microservices-demo /tmp/microservices-demo
+```
+
+**Step 2 — generate OTel `.pb` telemetry files** (the CLI's file ingester
+reads OTLP protobuf / JSON, not raw CSV):
+
+```bash
+mkdir -p /tmp/rootscout-telemetry
+python - <<'PY'
+from rootscout.demo_otel_data import (
+    create_boutique_traces, create_boutique_metrics, create_boutique_logs,
+)
+for name, req in [
+    ("traces",  create_boutique_traces()),
+    ("metrics", create_boutique_metrics()),
+    ("logs",    create_boutique_logs()),
+]:
+    open(f"/tmp/rootscout-telemetry/{name}.pb", "wb").write(req.SerializeToString())
+PY
+```
+
+**Step 3 — run the analyzer:**
+
+```bash
+rootscout analyze \
+  --telemetry       /tmp/rootscout-telemetry/ \
+  --incident-time   2026-04-16T03:57:16Z \
+  --failing-service cartservice \
+  --codebases       /tmp/microservices-demo/src \
+  --provider        claude \
+  --output          /tmp/rootscout-report.json
+```
+
+> Note: the demo telemetry uses `time.time()` at generation, so the incident
+> time must be within the lookback window (default 10h) of when you ran
+> Step 2. If you regenerate telemetry later, either update `--incident-time`
+> or substitute `"$(date -u +%Y-%m-%dT%H:%M:%SZ)"`.
+
+### Minimal example (single trace file, single local codebase)
+
+```bash
+rootscout analyze \
+  --telemetry       ./traces.pb \
+  --incident-time   2026-04-15T18:30:00Z \
+  --failing-service cartservice \
+  --codebases       /tmp/microservices-demo/src
+```
+
+### Using a GitHub URL instead of a local path for `--codebases`
+
+```bash
+rootscout analyze \
+  --telemetry       /tmp/rootscout-telemetry/ \
+  --incident-time   2026-04-15T18:30:00Z \
+  --failing-service cartservice \
+  --codebases       https://github.com/GoogleCloudPlatform/microservices-demo
+```
+
+### No API key? Use mock mode
+
+```bash
+rootscout analyze --provider mock \
+  --telemetry       /tmp/rootscout-telemetry/ \
+  --incident-time   2026-04-16T03:57:16Z \
+  --failing-service cartservice \
+  --codebases       /tmp/microservices-demo/src
 ```
 
 ---
