@@ -28,8 +28,6 @@ import os
 import sys
 from datetime import datetime
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
 from eval.scenarios import SYNTHETIC_SCENARIOS
 from eval.benchmark import (
     run_benchmark,
@@ -37,7 +35,7 @@ from eval.benchmark import (
     scenarios_to_query_csv,
 )
 from eval.evaluate import file_evaluate, report as print_report
-from llm_integration.client import get_client
+from rootscout.llm.client import get_client
 
 
 def main():
@@ -167,7 +165,7 @@ def main():
     # -----------------------------------------------------------------------
     llm_client = None
     if args.mock:
-        from llm_integration.client import MockClient
+        from rootscout.llm.client import MockClient
         llm_client = MockClient()
     else:
         try:
@@ -175,7 +173,7 @@ def main():
         except Exception as e:
             print(f"[run_eval] Could not initialise {args.model}: {e}")
             print("[run_eval] Falling back to MockClient")
-            from llm_integration.client import MockClient
+            from rootscout.llm.client import MockClient
             llm_client = MockClient()
 
     # -----------------------------------------------------------------------

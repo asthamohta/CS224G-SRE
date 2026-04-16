@@ -20,8 +20,8 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import requests
 
-from RootScout.otel_ingester import OTelIngester, TelemetrySink
-from RootScout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
+from rootscout.otel_ingester import OTelIngester, TelemetrySink
+from rootscout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
 
 
 

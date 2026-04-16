@@ -45,8 +45,6 @@ import time
 import traceback
 from datetime import datetime
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
 from eval.openrca_bank_loader import (
     load_bank_scenarios,
     _load_windowed_metrics,
@@ -55,9 +53,9 @@ from eval.openrca_bank_loader import (
 from eval.openrca_graph_adapter import build_bank_graph
 from eval.evaluate import evaluate as openrca_evaluate, file_evaluate, report as print_report
 from eval.benchmark import format_prediction, results_to_prediction_csv, scenarios_to_query_csv
-from graph.context_retriever import ContextRetriever
-from graph.agent import RCAAgent
-from llm_integration.client import get_client, MockClient
+from rootscout.graph.context_retriever import ContextRetriever
+from rootscout.graph.agent import RCAAgent
+from rootscout.llm.client import get_client, MockClient
 
 
 # ---------------------------------------------------------------------------

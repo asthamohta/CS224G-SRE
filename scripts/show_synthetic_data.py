@@ -10,10 +10,8 @@ import sys
 import os
 from datetime import datetime
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from RootScout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
-from RootScout.otel_ingester import OTelIngester, TelemetrySink
+from rootscout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
+from rootscout.otel_ingester import OTelIngester, TelemetrySink
 
 
 class JSONSink(TelemetrySink):

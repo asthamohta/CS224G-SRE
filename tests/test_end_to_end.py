@@ -5,8 +5,6 @@ import json
 import time
 import tempfile
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 PASS = "\033[32mPASS\033[0m"
 FAIL = "\033[31mFAIL\033[0m"
 
@@ -23,8 +21,8 @@ def check(label, condition, detail=""):
 
 def test_otel_ingestion():
     print("\nOTel Ingestion")
-    from RootScout.otel_ingester import OTelIngester, TelemetrySink
-    from RootScout.test_otel_data import create_test_traces, create_test_logs
+    from rootscout.otel_ingester import OTelIngester, TelemetrySink
+    from rootscout.test_otel_data import create_test_traces, create_test_logs
 
     class Sink(TelemetrySink):
         def __init__(self): self.records = []
@@ -50,7 +48,7 @@ def test_otel_ingestion():
 
 def test_graph_construction():
     print("\nGraph Construction")
-    from graph.graph_builder import GraphBuilder
+    from rootscout.graph.graph_builder import GraphBuilder
 
     gb = GraphBuilder()
     gb.ingest_trace_span({"service_name": "frontend", "parent_service": None, "status": "OK", "latency_ms": 50})
@@ -66,10 +64,10 @@ def test_graph_construction():
 
 def test_error_detection_from_logs():
     print("\nError Detection from Logs")
-    from RootScout.otel_ingester import OTelIngester
-    from RootScout.graph_sink import GraphBuilderSink
-    from RootScout.test_otel_data import create_test_logs
-    from graph.graph_builder import GraphBuilder
+    from rootscout.otel_ingester import OTelIngester
+    from rootscout.graph_sink import GraphBuilderSink
+    from rootscout.test_otel_data import create_test_logs
+    from rootscout.graph.graph_builder import GraphBuilder
 
     gb = GraphBuilder()
     sink = GraphBuilderSink(gb)
@@ -86,8 +84,8 @@ def test_error_detection_from_logs():
 
 def test_context_retrieval():
     print("\nContext Retrieval")
-    from graph.graph_builder import GraphBuilder
-    from graph.context_retriever import ContextRetriever
+    from rootscout.graph.graph_builder import GraphBuilder
+    from rootscout.graph.context_retriever import ContextRetriever
 
     gb = GraphBuilder()
     for svc in ["frontend", "cart-service", "database"]:
@@ -116,10 +114,10 @@ def test_context_retrieval():
 
 def test_rca_agent():
     print("\nRCA Agent")
-    from graph.graph_builder import GraphBuilder
-    from graph.context_retriever import ContextRetriever
-    from graph.agent import RCAAgent
-    from llm_integration.client import MockClient
+    from rootscout.graph.graph_builder import GraphBuilder
+    from rootscout.graph.context_retriever import ContextRetriever
+    from rootscout.graph.agent import RCAAgent
+    from rootscout.llm.client import MockClient
 
     gb = GraphBuilder()
     for svc in ["frontend", "cart-service"]:
@@ -142,7 +140,7 @@ def test_rca_agent():
 
 def test_github_enrichment():
     print("\nGitHub Enrichment")
-    from graph.data_parser import enrich_context_from_github_output_path
+    from rootscout.graph.data_parser import enrich_context_from_github_output_path
 
     event = {
         "ingested_at": "2026-03-13T10:00:00+00:00",
@@ -180,13 +178,13 @@ def test_github_enrichment():
 
 def test_full_pipeline():
     print("\nFull End-to-End Pipeline")
-    from RootScout.otel_ingester import OTelIngester
-    from RootScout.graph_sink import GraphBuilderSink
-    from RootScout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
-    from graph.graph_builder import GraphBuilder
-    from graph.context_retriever import ContextRetriever
-    from graph.agent import RCAAgent
-    from llm_integration.client import MockClient
+    from rootscout.otel_ingester import OTelIngester
+    from rootscout.graph_sink import GraphBuilderSink
+    from rootscout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
+    from rootscout.graph.graph_builder import GraphBuilder
+    from rootscout.graph.context_retriever import ContextRetriever
+    from rootscout.graph.agent import RCAAgent
+    from rootscout.llm.client import MockClient
     import networkx as nx
 
     gb = GraphBuilder()

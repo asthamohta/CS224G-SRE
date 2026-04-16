@@ -19,7 +19,7 @@ from urllib.parse import parse_qs
 
 import httpx
 
-from RootScout.otel_ingester import TelemetrySink
+from rootscout.otel_ingester import TelemetrySink
 
 
 @dataclass
@@ -402,8 +402,8 @@ class SlackCommandHandler:
                 )
                 return
 
-            from graph.context_retriever import ContextRetriever
-            from graph.agent import RCAAgent
+            from rootscout.graph.context_retriever import ContextRetriever
+            from rootscout.graph.agent import RCAAgent
 
             context_packet = ContextRetriever(self._graph_builder).get_context(
                 service_name

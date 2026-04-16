@@ -9,8 +9,6 @@ import json
 import time
 import asyncio
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 PASS = "\033[32m PASS\033[0m"
 FAIL = "\033[31m FAIL\033[0m"
 INFO = "\033[34m INFO\033[0m"
@@ -28,7 +26,7 @@ def check(label: str, condition: bool, detail: str = "") -> None:
 # Test SlackConfig and slack_config_from_env
 def test_config():
     print("\n── Test: SlackConfig ──────────────────────────────────────────")
-    from RootScout.slack_connector import SlackConfig, slack_config_from_env
+    from rootscout.slack_connector import SlackConfig, slack_config_from_env
 
     # no token -> returns None
     os.environ.pop("SLACK_BOT_TOKEN", None)
@@ -53,7 +51,7 @@ def test_config():
 # Test SlackNotifier block generation (no network call)
 def test_block_generation():
     print("── Test: Block Kit message formatting ─────────────────────────")
-    from RootScout.slack_connector import SlackConfig, SlackNotifier
+    from rootscout.slack_connector import SlackConfig, SlackNotifier
 
     cfg = SlackConfig(bot_token="xoxb-dummy", alert_channel="#incidents")
     notifier = SlackNotifier(cfg)
@@ -103,8 +101,8 @@ def test_block_generation():
 # Test SlackAlertSink – deduplication and forwarding
 def test_alert_sink():
     print("── Test: SlackAlertSink ────────────────────────────────────────")
-    from RootScout.slack_connector import SlackConfig, SlackNotifier, SlackAlertSink
-    from RootScout.otel_ingester import TelemetrySink
+    from rootscout.slack_connector import SlackConfig, SlackNotifier, SlackAlertSink
+    from rootscout.otel_ingester import TelemetrySink
 
     posted_alerts = []
 
@@ -156,7 +154,7 @@ def test_alert_sink():
 def test_signature_verification():
     print("── Test: Slack request signature verification ──────────────────")
     import hashlib, hmac as hmac_mod, time as time_mod
-    from RootScout.slack_connector import SlackConfig, SlackCommandHandler
+    from rootscout.slack_connector import SlackConfig, SlackCommandHandler
 
     secret = "my-signing-secret"
     cfg = SlackConfig(bot_token="xoxb-dummy", signing_secret=secret)
@@ -186,11 +184,11 @@ def test_signature_verification():
 def test_pipeline_integration():
     print("── Test: Full pipeline (dry-run, synthetic data) ────────────────")
 
-    from RootScout.slack_connector import SlackConfig, SlackNotifier, SlackAlertSink
-    from RootScout.otel_ingester import OTelIngester
-    from RootScout.graph_sink import GraphBuilderSink, ComposedSink
-    from RootScout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
-    from graph.graph_builder import GraphBuilder
+    from rootscout.slack_connector import SlackConfig, SlackNotifier, SlackAlertSink
+    from rootscout.otel_ingester import OTelIngester
+    from rootscout.graph_sink import GraphBuilderSink, ComposedSink
+    from rootscout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
+    from rootscout.graph.graph_builder import GraphBuilder
 
     posted = {"alerts": [], "reports": []}
 
@@ -226,10 +224,10 @@ def test_pipeline_integration():
           f"Captured alerts: {posted['alerts']}")
     print()
 
-    from graph.graph_builder import GraphBuilder
-    from graph.context_retriever import ContextRetriever
-    from graph.agent import RCAAgent
-    from llm_integration.client import MockClient
+    from rootscout.graph.graph_builder import GraphBuilder
+    from rootscout.graph.context_retriever import ContextRetriever
+    from rootscout.graph.agent import RCAAgent
+    from rootscout.llm.client import MockClient
 
     gb2 = GraphBuilder()
     gb2._ensure_node("cart-service")
@@ -253,7 +251,7 @@ def test_pipeline_integration():
 # Test live Slack 
 def test_live_slack():
     print("── Test: Live Slack (posting real messages) ─────────────────────")
-    from RootScout.slack_connector import SlackConfig, SlackNotifier
+    from rootscout.slack_connector import SlackConfig, SlackNotifier
 
     token = os.getenv("SLACK_BOT_TOKEN", "")
     channel = os.getenv("SLACK_ALERT_CHANNEL", "#incidents")

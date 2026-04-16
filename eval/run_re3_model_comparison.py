@@ -38,13 +38,11 @@ import argparse
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
 from eval.rcaeval_loader import load_re3_scenarios
 from eval.run_rcaeval_eval import run_re3_benchmark
 from eval.benchmark import results_to_prediction_csv, scenarios_to_query_csv
 from eval.evaluate import file_evaluate, report as print_report
-from llm_integration.client import get_client, MockClient
+from rootscout.llm.client import get_client, MockClient
 
 _DEFAULT_MODELS = ["gemini", "claude-sonnet", "claude-opus"]
 

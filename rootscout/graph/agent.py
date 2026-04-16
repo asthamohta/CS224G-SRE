@@ -1,11 +1,11 @@
 import json
 from typing import Any, Dict, List
-from llm_integration.client import MockClient
-from graph.data_parser import enrich_context_from_github_output_path
+from rootscout.llm.client import MockClient
+from rootscout.graph.data_parser import enrich_context_from_github_output_path
 
 
 class RCAAgent:
-    def __init__(self, client=None, github_output_path=None):
+    def __init__(self, client=None, github_output_path=None, code_index=None):
         """
         Initializes the RootScout RCA Agent.
 
@@ -13,9 +13,11 @@ class RCAAgent:
             client: LLM client (defaults to MockClient for safety)
             github_output_path: Path to GitHub JSONL file for context enrichment.
                                If not provided, will use GITHUB_OUTPUT_PATH env var.
+            code_index: Optional CodeIndex for code snippet enrichment.
         """
         self.client = client or MockClient()
         self.github_output_path = github_output_path
+        self.code_index = code_index
 
     def analyze(self, context_packet: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -31,6 +33,13 @@ class RCAAgent:
             lookback_hours=168,
             verbose=True,
         )
+
+        # Enrich with code snippets from indexed codebases
+        if self.code_index:
+            from rootscout.code_indexer import enrich_context_from_code_index
+            context_packet = enrich_context_from_code_index(
+                context_packet, self.code_index
+            )
 
         prompt = self._construct_prompt(context_packet)
 

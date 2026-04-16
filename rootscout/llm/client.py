@@ -166,38 +166,40 @@ class MockClient(LLMClient):
 
 _PROVIDER_MAP = {
     # Gemini variants
-    "gemini":             lambda m: GeminiClient(model=m or "gemini-2.5-flash"),
-    "gemini-2.5-flash":   lambda m: GeminiClient(model="gemini-2.5-flash"),
-    "gemini-2.5-pro":     lambda m: GeminiClient(model="gemini-2.5-pro"),
-    "gemini-1.5-pro":     lambda m: GeminiClient(model="gemini-1.5-pro"),
+    "gemini":             lambda m, k: GeminiClient(api_key=k, model=m or "gemini-2.5-flash"),
+    "gemini-2.5-flash":   lambda m, k: GeminiClient(api_key=k, model="gemini-2.5-flash"),
+    "gemini-2.5-pro":     lambda m, k: GeminiClient(api_key=k, model="gemini-2.5-pro"),
+    "gemini-1.5-pro":     lambda m, k: GeminiClient(api_key=k, model="gemini-1.5-pro"),
     # Claude variants
-    "claude":             lambda m: ClaudeClient(model=m or "claude-sonnet-4-6"),
-    "claude-opus":        lambda m: ClaudeClient(model="claude-opus-4-6"),
-    "claude-sonnet":      lambda m: ClaudeClient(model="claude-sonnet-4-6"),
-    "claude-haiku":       lambda m: ClaudeClient(model="claude-haiku-4-5-20251001"),
+    "claude":             lambda m, k: ClaudeClient(api_key=k, model=m or "claude-sonnet-4-6"),
+    "claude-opus":        lambda m, k: ClaudeClient(api_key=k, model="claude-opus-4-6"),
+    "claude-sonnet":      lambda m, k: ClaudeClient(api_key=k, model="claude-sonnet-4-6"),
+    "claude-haiku":       lambda m, k: ClaudeClient(api_key=k, model="claude-haiku-4-5-20251001"),
     # OpenAI variants
-    "openai":             lambda m: OpenAIClient(model=m or "gpt-4o"),
-    "gpt-4o":             lambda m: OpenAIClient(model="gpt-4o"),
-    "gpt-4o-mini":        lambda m: OpenAIClient(model="gpt-4o-mini"),
-    "gpt-4-turbo":        lambda m: OpenAIClient(model="gpt-4-turbo"),
+    "openai":             lambda m, k: OpenAIClient(api_key=k, model=m or "gpt-4o"),
+    "gpt-4o":             lambda m, k: OpenAIClient(api_key=k, model="gpt-4o"),
+    "gpt-4o-mini":        lambda m, k: OpenAIClient(api_key=k, model="gpt-4o-mini"),
+    "gpt-4-turbo":        lambda m, k: OpenAIClient(api_key=k, model="gpt-4-turbo"),
     # Mock
-    "mock":               lambda m: MockClient(),
+    "mock":               lambda m, k: MockClient(),
 }
 
 
-def get_client(provider: str, model: str = None) -> LLMClient:
+def get_client(provider: str, model: str = None, api_key: str = None) -> LLMClient:
     """
     Build an LLM client from a short provider/model string.
 
     Examples:
         get_client("gemini")
-        get_client("claude")
+        get_client("claude", api_key="sk-xxx")
         get_client("openai", model="gpt-4o-mini")
         get_client("mock")
 
     The `provider` string is matched case-insensitively against the known
     aliases above. If `provider` contains a slash (e.g. "openai/gpt-4o-mini"),
     the part after the slash is used as the model name.
+
+    If api_key is provided, it takes precedence over environment variables.
     """
     key = provider.lower()
 
@@ -210,4 +212,4 @@ def get_client(provider: str, model: str = None) -> LLMClient:
             f"Unknown provider '{provider}'. "
             f"Available: {', '.join(_PROVIDER_MAP)}"
         )
-    return _PROVIDER_MAP[key](model)
+    return _PROVIDER_MAP[key](model, api_key)

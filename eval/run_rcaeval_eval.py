@@ -48,15 +48,13 @@ import time
 import traceback
 from datetime import datetime
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
 from eval.rcaeval_loader import load_re3_scenarios
 from eval.rcaeval_graph_adapter import build_re3_graph
 from eval.evaluate import evaluate as openrca_evaluate, file_evaluate, report as print_report
 from eval.benchmark import format_prediction, results_to_prediction_csv, scenarios_to_query_csv
-from graph.context_retriever import ContextRetriever
-from graph.agent import RCAAgent
-from llm_integration.client import get_client, MockClient
+from rootscout.graph.context_retriever import ContextRetriever
+from rootscout.graph.agent import RCAAgent
+from rootscout.llm.client import get_client, MockClient
 
 
 # ---------------------------------------------------------------------------

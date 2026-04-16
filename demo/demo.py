@@ -21,18 +21,15 @@ import json
 import time
 from datetime import datetime, timezone
 
-# Add project root to path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from rootscout.otel_ingester import OTelIngester
+from rootscout.graph_sink import GraphBuilderSink, ComposedSink
+from rootscout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
 
-from RootScout.otel_ingester import OTelIngester
-from RootScout.graph_sink import GraphBuilderSink, ComposedSink
-from RootScout.test_otel_data import create_test_traces, create_test_metrics, create_test_logs
-
-from graph.graph_builder import GraphBuilder
-from graph.context_retriever import ContextRetriever
-from graph.agent import RCAAgent
-from llm_integration.client import MockClient, GeminiClient
-from slack_integration import SlackNotifier
+from rootscout.graph.graph_builder import GraphBuilder
+from rootscout.graph.context_retriever import ContextRetriever
+from rootscout.graph.agent import RCAAgent
+from rootscout.llm.client import MockClient, GeminiClient
+from rootscout.slack_integration import SlackNotifier
 
 
 # =============================================================================
